@@ -2244,7 +2244,3706 @@ export const theme = {
                     </div>
                 `
             },
-            // Add more content for other topics...
+            'project-structure': {
+                title: 'Project Structure',
+                content: `
+                    <h1><i class="fas fa-sitemap"></i> React Native Project Structure</h1>
+                    
+                    <p>Understanding the project structure is crucial for organizing your code effectively and maintaining a scalable React Native application. Let's explore the anatomy of a React Native project.</p>
+
+                    <h2><i class="fas fa-folder-tree"></i> Standard Project Structure</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Project Directory</span>
+                        </div>
+                        <pre><code class="language-bash">MyReactNativeApp/
+├── android/                 # Android native code
+│   ├── app/                # Main Android app module
+│   ├── gradle/            # Gradle wrapper files
+│   └── build.gradle       # Android build configuration
+├── ios/                    # iOS native code
+│   ├── MyApp/             # Main iOS app folder
+│   ├── MyApp.xcodeproj/   # Xcode project
+│   └── Podfile            # CocoaPods dependencies
+├── src/                    # Source code (recommended)
+│   ├── components/        # Reusable components
+│   ├── screens/          # Screen components
+│   ├── navigation/       # Navigation configuration
+│   ├── services/         # API and external services
+│   ├── utils/            # Utility functions
+│   ├── assets/           # Images, fonts, etc.
+│   ├── store/            # State management
+│   └── constants/        # App constants
+├── __tests__/             # Test files
+├── node_modules/          # Dependencies
+├── .gitignore            # Git ignore file
+├── .eslintrc.js          # ESLint configuration
+├── .prettierrc           # Prettier configuration
+├── App.tsx               # Root component
+├── app.json              # App configuration
+├── babel.config.js       # Babel configuration
+├── index.js              # Entry point
+├── metro.config.js       # Metro bundler config
+├── package.json          # Dependencies and scripts
+└── tsconfig.json         # TypeScript configuration</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-folder-open"></i> Key Directories Explained</h2>
+
+                    <h3>1. Platform-Specific Folders</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Platform Folders</span>
+                        </div>
+                        <pre><code class="language-javascript">// android/ - Contains all Android-specific code
+// - Gradle build files
+// - Native Android modules
+// - Android resources and assets
+
+// ios/ - Contains all iOS-specific code
+// - Xcode project files
+// - Native iOS modules
+// - Info.plist configuration</code></pre>
+                    </div>
+
+                    <h3>2. Source Code Organization</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">src/components/Button.tsx</span>
+                        </div>
+                        <pre><code class="language-typescript">// Reusable component example
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+
+interface ButtonProps {
+  title: string;
+  onPress: () => void;
+  variant?: 'primary' | 'secondary';
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  disabled?: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  title,
+  onPress,
+  variant = 'primary',
+  style,
+  textStyle,
+  disabled = false,
+}) => {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.button,
+        styles[variant],
+        disabled && styles.disabled,
+        style,
+      ]}
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={0.7}
+    >
+      <Text style={[styles.text, styles[\`\${variant}Text\`], textStyle]}>
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  primary: {
+    backgroundColor: '#007AFF',
+  },
+  secondary: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#007AFF',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  primaryText: {
+    color: 'white',
+  },
+  secondaryText: {
+    color: '#007AFF',
+  },
+});</code></pre>
+                    </div>
+
+                    <h3>3. Screen Components</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">src/screens/HomeScreen.tsx</span>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Button } from '../components/Button';
+
+interface HomeScreenProps {
+  // Props from navigation
+}
+
+export const HomeScreen: React.FC<HomeScreenProps> = () => {
+  const navigation = useNavigation();
+
+  const features = [
+    { id: '1', title: 'Profile', screen: 'Profile' },
+    { id: '2', title: 'Settings', screen: 'Settings' },
+    { id: '3', title: 'About', screen: 'About' },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to MyApp</Text>
+      
+      <FlatList
+        data={features}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <Button
+            title={item.title}
+            onPress={() => navigation.navigate(item.screen)}
+            style={styles.button}
+          />
+        )}
+        contentContainerStyle={styles.list}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  list: {
+    paddingHorizontal: 20,
+  },
+  button: {
+    marginBottom: 10,
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-cog"></i> Configuration Files</h2>
+
+                    <h3>app.json</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">json</span>
+                        </div>
+                        <pre><code class="language-json">{
+  "name": "MyReactNativeApp",
+  "displayName": "My React Native App",
+  "expo": {
+    "name": "MyReactNativeApp",
+    "slug": "my-react-native-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <h3>metro.config.js</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">javascript</span>
+                        </div>
+                        <pre><code class="language-javascript">const { getDefaultConfig } = require('metro-config');
+
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts }
+  } = await getDefaultConfig();
+  
+  return {
+    transformer: {
+      babelTransformerPath: require.resolve('react-native-svg-transformer'),
+      getTransformOptions: async () => ({
+        transform: {
+          experimentalImportSupport: false,
+          inlineRequires: true,
+        },
+      }),
+    },
+    resolver: {
+      assetExts: assetExts.filter(ext => ext !== 'svg'),
+      sourceExts: [...sourceExts, 'svg'],
+    },
+  };
+})();</code></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Best Practices</h4>
+                        <p>• Keep components small and focused<br>
+                        • Use absolute imports with babel-plugin-module-resolver<br>
+                        • Separate business logic from UI components<br>
+                        • Group related files together<br>
+                        • Use index.ts files for cleaner imports</p>
+                    </div>
+
+                    <h2><i class="fas fa-file-import"></i> Import Organization</h2>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">typescript</span>
+                        </div>
+                        <pre><code class="language-typescript">// babel.config.js - Configure absolute imports
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+        alias: {
+          '@components': './src/components',
+          '@screens': './src/screens',
+          '@utils': './src/utils',
+          '@assets': './src/assets',
+          '@services': './src/services',
+          '@navigation': './src/navigation',
+          '@store': './src/store',
+          '@constants': './src/constants',
+        },
+      },
+    ],
+  ],
+};
+
+// Now you can import like this:
+import { Button } from '@components/Button';
+import { HomeScreen } from '@screens/HomeScreen';
+import { api } from '@services/api';</code></pre>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Quick Check</h3>
+                        <p class="quiz-question">Which folder contains platform-specific code for iOS?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                src/ios
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                ios/
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                platforms/ios
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                native/ios
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-folder-plus"></i> Project: Organize Your App</h3>
+                        <p class="project-description">Create a well-structured React Native project:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="struct1">
+                                <label for="struct1">Create the src/ directory structure</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="struct2">
+                                <label for="struct2">Set up absolute imports with babel-plugin-module-resolver</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="struct3">
+                                <label for="struct3">Create a reusable Button component</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="struct4">
+                                <label for="struct4">Organize screens into separate files</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="struct5">
+                                <label for="struct5">Set up a constants file for app-wide values</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'dev-tools': {
+                title: 'Development Tools',
+                content: `
+                    <h1><i class="fas fa-tools"></i> React Native Development Tools</h1>
+                    
+                    <p>Master the essential tools that will supercharge your React Native development workflow. From debugging to performance monitoring, these tools are indispensable for professional development.</p>
+
+                    <h2><i class="fas fa-bug"></i> React Native Debugger</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                        </div>
+                        <pre><code class="language-bash"># Install React Native Debugger (standalone app)
+# macOS
+brew install --cask react-native-debugger
+
+# Windows/Linux - Download from GitHub releases
+# https://github.com/jhen0409/react-native-debugger/releases
+
+# Launch the debugger
+open "rndebugger://set-debugger-loc?host=localhost&port=8081"</code></pre>
+                    </div>
+
+                    <h3>Features of React Native Debugger</h3>
+                    <ul>
+                        <li>Chrome DevTools integration</li>
+                        <li>React DevTools integration</li>
+                        <li>Redux DevTools integration</li>
+                        <li>Network request inspection</li>
+                        <li>AsyncStorage management</li>
+                    </ul>
+
+                    <h2><i class="fas fa-mobile-alt"></i> Flipper</h2>
+                    <p>Flipper is Facebook's powerful debugging platform for mobile apps.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Setup Flipper</span>
+                        </div>
+                        <pre><code class="language-javascript">// No additional setup needed for React Native 0.62+
+// Flipper is integrated by default!
+
+// To use Flipper plugins in your code:
+import { logger } from 'react-native-flipper';
+
+// Log messages to Flipper
+logger.log('Debug message');
+logger.warn('Warning message');
+logger.error('Error message');
+
+// Track performance
+logger.track('api-call', {
+  duration: 1234,
+  endpoint: '/users',
+  status: 200
+});</code></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-rocket"></i> Flipper Plugins</h4>
+                        <p>• <strong>Layout Inspector:</strong> Inspect and modify UI in real-time<br>
+                        • <strong>Network Plugin:</strong> Monitor all network requests<br>
+                        • <strong>Databases:</strong> Browse SQLite/Realm databases<br>
+                        • <strong>React DevTools:</strong> Component tree inspection<br>
+                        • <strong>Logs:</strong> View console logs with filtering</p>
+                    </div>
+
+                    <h2><i class="fas fa-terminal"></i> Metro Bundler</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                        </div>
+                        <pre><code class="language-bash"># Start Metro bundler
+npx react-native start
+
+# Start with cache reset
+npx react-native start --reset-cache
+
+# Change port
+npx react-native start --port 8088
+
+# Enable inspector
+npx react-native start --inspector</code></pre>
+                    </div>
+
+                    <h3>Metro Configuration</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">metro.config.js</span>
+                        </div>
+                        <pre><code class="language-javascript">module.exports = {
+  transformer: {
+    minifierConfig: {
+      keep_fnames: true,
+      mangle: {
+        keep_fnames: true,
+      },
+    },
+  },
+  resolver: {
+    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'mjs'],
+    resolverMainFields: ['react-native', 'browser', 'main'],
+  },
+  server: {
+    port: 8081,
+    enhanceMiddleware: (middleware) => {
+      return (req, res, next) => {
+        // Custom middleware logic
+        return middleware(req, res, next);
+      };
+    },
+  },
+};</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-code"></i> VS Code Extensions</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Essential Extensions</span>
+                        </div>
+                        <pre><code class="language-json">{
+  "recommendations": [
+    // React Native specific
+    "msjsdiag.vscode-react-native",
+    "dsznajder.es7-react-js-snippets",
+    
+    // Code quality
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    
+    // Productivity
+    "eamodio.gitlens",
+    "usernamehw.errorlens",
+    "wix.vscode-import-cost",
+    
+    // Styling
+    "styled-components.vscode-styled-components",
+    "bradlc.vscode-tailwindcss",
+    
+    // Testing
+    "orta.vscode-jest",
+    "firsttris.vscode-jest-runner"
+  ]
+}</code></pre>
+                    </div>
+
+                    <h3>VS Code Settings</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">.vscode/settings.json</span>
+                        </div>
+                        <pre><code class="language-json">{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "react-native-tools.showUserTips": false,
+  "react-native-tools.projectRoot": "./",
+  "react-native-tools.packager.port": 8081
+}</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-chart-line"></i> Performance Monitoring</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Performance.tsx</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useEffect } from 'react';
+import { PerformanceObserver } from 'react-native-performance';
+
+// Enable performance monitoring
+export const PerformanceMonitor: React.FC = ({ children }) => {
+  useEffect(() => {
+    // Monitor JS frame rate
+    const observer = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach((entry) => {
+        console.log(\`\${entry.name}: \${entry.duration}ms\`);
+      });
+    });
+
+    observer.observe({ entryTypes: ['measure'] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return <>{children}</>;
+};
+
+// Measure component render time
+export const measureRender = (componentName: string) => {
+  return (WrappedComponent: React.ComponentType<any>) => {
+    return (props: any) => {
+      useEffect(() => {
+        performance.mark(\`\${componentName}-mount\`);
+        
+        return () => {
+          performance.mark(\`\${componentName}-unmount\`);
+          performance.measure(
+            componentName,
+            \`\${componentName}-mount\`,
+            \`\${componentName}-unmount\`
+          );
+        };
+      }, []);
+
+      return <WrappedComponent {...props} />;
+    };
+  };
+};</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-network-wired"></i> Network Debugging</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">NetworkLogger.ts</span>
+                        </div>
+                        <pre><code class="language-typescript">// Custom network interceptor
+export const setupNetworkLogging = () => {
+  const originalFetch = global.fetch;
+  
+  global.fetch = async (...args) => {
+    const [url, config] = args;
+    const method = config?.method || 'GET';
+    
+    console.log(\`🌐 \${method} \${url}\`);
+    const startTime = Date.now();
+    
+    try {
+      const response = await originalFetch(...args);
+      const duration = Date.now() - startTime;
+      
+      console.log(\`✅ \${method} \${url} - \${response.status} (\${duration}ms)\`);
+      
+      return response;
+    } catch (error) {
+      const duration = Date.now() - startTime;
+      console.error(\`❌ \${method} \${url} - Failed (\${duration}ms)\`, error);
+      throw error;
+    }
+  };
+};
+
+// Use in App.tsx
+if (__DEV__) {
+  setupNetworkLogging();
+}</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-memory"></i> Memory Profiling</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">MemoryMonitor.tsx</span>
+                        </div>
+                        <pre><code class="language-typescript">import { useEffect, useRef } from 'react';
+import { DeviceEventEmitter } from 'react-native';
+
+export const useMemoryWarning = () => {
+  const memoryWarningCount = useRef(0);
+
+  useEffect(() => {
+    const subscription = DeviceEventEmitter.addListener(
+      'memoryWarning',
+      () => {
+        memoryWarningCount.current++;
+        console.warn(\`Memory warning #\${memoryWarningCount.current}\`);
+        
+        // Take action to free memory
+        // Clear caches, reduce image quality, etc.
+      }
+    );
+
+    return () => subscription.remove();
+  }, []);
+};
+
+// Track component memory usage
+export const trackMemoryUsage = (componentName: string) => {
+  if (__DEV__) {
+    console.log(\`\${componentName} mounted - Memory: \${performance.memory?.usedJSHeapSize}\`);
+  }
+};</code></pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Debugging Tips</h4>
+                        <p>• Always remove console.log statements before production<br>
+                        • Use conditional debugging with __DEV__ flag<br>
+                        • Be careful with breakpoints in async code<br>
+                        • Test on real devices, not just simulators</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Tool Knowledge</h3>
+                        <p class="quiz-question">Which tool provides the most comprehensive debugging experience for React Native?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                Chrome DevTools
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                Flipper
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                Console.log
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                VS Code Debugger
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-wrench"></i> Project: Set Up Dev Environment</h3>
+                        <p class="project-description">Configure your ultimate React Native development setup:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="tools1">
+                                <label for="tools1">Install and configure Flipper</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="tools2">
+                                <label for="tools2">Set up VS Code with recommended extensions</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="tools3">
+                                <label for="tools3">Implement network logging for debugging</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="tools4">
+                                <label for="tools4">Create custom performance monitoring</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="tools5">
+                                <label for="tools5">Configure React Native Debugger</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'view-text': {
+                title: 'View and Text',
+                content: `
+                    <h1><i class="fas fa-square"></i> View and Text Components</h1>
+                    
+                    <p>View and Text are the most fundamental components in React Native. Every UI you build will use these as building blocks. Let's master them!</p>
+
+                    <h2><i class="fas fa-layer-group"></i> The View Component</h2>
+                    <p>View is like a div in web development - it's a container that supports layout with flexbox, style, touch handling, and accessibility controls.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Basic View Usage</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import { View, StyleSheet } from 'react-native';
+
+const ViewExample = () => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.box1} />
+      <View style={styles.box2}>
+        <View style={styles.innerBox} />
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+  },
+  box1: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#007AFF',
+    marginBottom: 20,
+    borderRadius: 10,
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Shadow for Android
+    elevation: 5,
+  },
+  box2: {
+    flex: 1,
+    backgroundColor: '#34C759',
+    padding: 20,
+    borderRadius: 10,
+  },
+  innerBox: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+});</code></pre>
+                    </div>
+
+                    <h3>View Properties</h3>
+                    <div class="tip-box">
+                        <h4><i class="fas fa-info-circle"></i> Common View Props</h4>
+                        <p>• <strong>style:</strong> Apply styles to the view<br>
+                        • <strong>onLayout:</strong> Called when view layout changes<br>
+                        • <strong>pointerEvents:</strong> Controls touch event handling<br>
+                        • <strong>accessible:</strong> Marks view as accessible<br>
+                        • <strong>testID:</strong> Used for testing</p>
+                    </div>
+
+                    <h2><i class="fas fa-font"></i> The Text Component</h2>
+                    <p>Text displays, styles, and nests strings of text and even handles touch events.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Text Examples</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const TextExample = () => {
+  return (
+    <View style={styles.container}>
+      {/* Basic Text */}
+      <Text style={styles.title}>Welcome to React Native!</Text>
+      
+      {/* Nested Text with different styles */}
+      <Text style={styles.paragraph}>
+        This is a <Text style={styles.bold}>bold</Text> word and 
+        this is <Text style={styles.italic}>italic</Text>.
+      </Text>
+      
+      {/* Multiline Text */}
+      <Text style={styles.multiline} numberOfLines={3}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+      </Text>
+      
+      {/* Selectable Text */}
+      <Text style={styles.selectable} selectable>
+        This text can be selected and copied!
+      </Text>
+      
+      {/* Clickable Text */}
+      <Text 
+        style={styles.link}
+        onPress={() => console.log('Text pressed!')}
+      >
+        Click me!
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333',
+  },
+  paragraph: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 15,
+    color: '#666',
+  },
+  bold: {
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  italic: {
+    fontStyle: 'italic',
+  },
+  multiline: {
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 15,
+    color: '#666',
+  },
+  selectable: {
+    fontSize: 16,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+    marginBottom: 15,
+  },
+  link: {
+    fontSize: 16,
+    color: '#007AFF',
+    textDecorationLine: 'underline',
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-text-height"></i> Text Styling Properties</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Advanced Text Styling</span>
+                        </div>
+                        <pre><code class="language-typescript">const styles = StyleSheet.create({
+  customText: {
+    // Font properties
+    fontFamily: 'System',
+    fontSize: 18,
+    fontWeight: '600', // '100' to '900', 'bold', 'normal'
+    fontStyle: 'normal', // 'normal', 'italic'
+    
+    // Text alignment
+    textAlign: 'center', // 'left', 'right', 'center', 'justify'
+    textAlignVertical: 'center', // Android only
+    
+    // Decoration
+    textDecorationLine: 'underline', // 'none', 'underline', 'line-through', 'underline line-through'
+    textDecorationStyle: 'solid', // 'solid', 'double', 'dotted', 'dashed'
+    textDecorationColor: '#ff0000',
+    
+    // Transform
+    textTransform: 'uppercase', // 'none', 'uppercase', 'lowercase', 'capitalize'
+    
+    // Spacing
+    letterSpacing: 2,
+    lineHeight: 24,
+    
+    // Shadow (iOS only)
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
+  },
+});</code></pre>
+                    </div>
+
+                    <div class="playground">
+                        <div class="playground-header">
+                            <h3><i class="fas fa-play-circle"></i> Interactive Example</h3>
+                            <div class="playground-tabs">
+                                <button class="playground-tab active" onclick="switchPlaygroundTab(this, 'code')">Code</button>
+                                <button class="playground-tab" onclick="switchPlaygroundTab(this, 'preview')">Preview</button>
+                            </div>
+                        </div>
+                        <div class="playground-content">
+                            <div class="playground-editor" id="playground-code">
+                                <textarea class="editor-textarea">
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+const InteractiveViewText = () => {
+  const [count, setCount] = useState(0);
+  const [bgColor, setBgColor] = useState('#007AFF');
+
+  const colors = ['#007AFF', '#34C759', '#FF3B30', '#FF9500', '#AF52DE'];
+
+  return (
+    <View style={[styles.container, { backgroundColor: bgColor + '20' }]}>
+      <Text style={styles.title}>
+        Interactive View & Text Demo
+      </Text>
+      
+      <View style={[styles.counterBox, { backgroundColor: bgColor }]}>
+        <Text style={styles.counterText}>{count}</Text>
+      </View>
+      
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => setCount(count + 1)}
+      >
+        <Text style={styles.buttonText}>Increment Counter</Text>
+      </TouchableOpacity>
+      
+      <View style={styles.colorContainer}>
+        {colors.map((color) => (
+          <TouchableOpacity
+            key={color}
+            style={[styles.colorBox, { backgroundColor: color }]}
+            onPress={() => setBgColor(color)}
+          />
+        ))}
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  counterBox: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  counterText: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  button: {
+    backgroundColor: '#333',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  colorContainer: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  colorBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+});</textarea>
+                            </div>
+                            <div class="playground-preview" id="playground-preview" style="display: none;">
+                                <div style="flex: 1; padding: 20px; background: rgba(0, 122, 255, 0.1); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 20px;">Interactive View & Text Demo</h2>
+                                    <div style="width: 100px; height: 100px; background: #007AFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                        <span style="font-size: 36px; font-weight: bold; color: white;">0</span>
+                                    </div>
+                                    <button style="background: #333; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-bottom: 20px; cursor: pointer;">Increment Counter</button>
+                                    <div style="display: flex; gap: 10px;">
+                                        <div style="width: 40px; height: 40px; background: #007AFF; border-radius: 20px; cursor: pointer;"></div>
+                                        <div style="width: 40px; height: 40px; background: #34C759; border-radius: 20px; cursor: pointer;"></div>
+                                        <div style="width: 40px; height: 40px; background: #FF3B30; border-radius: 20px; cursor: pointer;"></div>
+                                        <div style="width: 40px; height: 40px; background: #FF9500; border-radius: 20px; cursor: pointer;"></div>
+                                        <div style="width: 40px; height: 40px; background: #AF52DE; border-radius: 20px; cursor: pointer;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2><i class="fas fa-universal-access"></i> Accessibility</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Accessible Components</span>
+                        </div>
+                        <pre><code class="language-typescript">const AccessibleExample = () => {
+  return (
+    <View accessible={true} accessibilityRole="button">
+      <Text 
+        accessible={true}
+        accessibilityLabel="Welcome message"
+        accessibilityHint="This is the main title of the app"
+        accessibilityRole="header"
+      >
+        Welcome to Our App
+      </Text>
+      
+      <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="Submit button"
+        accessibilityHint="Double tap to submit the form"
+        accessibilityRole="button"
+        accessibilityState={{ disabled: false }}
+      >
+        <Text>Submit</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Common Pitfalls</h4>
+                        <p>• Text must be wrapped in a Text component - you can't put raw text in View<br>
+                        • View doesn't support text-specific styles like fontSize<br>
+                        • On Android, Text doesn't inherit styles from parent Text components<br>
+                        • Be careful with text shadows on Android - they're not supported</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Quick Check</h3>
+                        <p class="quiz-question">Which style property is iOS-only for Text components?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                fontSize
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                textShadowColor
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                fontWeight
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                textAlign
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-code"></i> Mini Project: Business Card</h3>
+                        <p class="project-description">Create a digital business card using View and Text components:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="vt1">
+                                <label for="vt1">Create a card container with shadow/elevation</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="vt2">
+                                <label for="vt2">Add name with large, bold text</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="vt3">
+                                <label for="vt3">Add job title with different color</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="vt4">
+                                <label for="vt4">Create contact info section with icons</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="vt5">
+                                <label for="vt5">Make email/phone clickable</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'image-imagebackground': {
+                title: 'Image & ImageBackground',
+                content: `
+                    <h1><i class="fas fa-image"></i> Image & ImageBackground Components</h1>
+                    
+                    <p>Images are essential for creating engaging mobile apps. React Native provides powerful Image and ImageBackground components for displaying local and remote images with various styling options.</p>
+
+                    <h2><i class="fas fa-photo-video"></i> The Image Component</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Basic Image Usage</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import { View, Image, StyleSheet, Text } from 'react-native';
+
+const ImageExample = () => {
+  return (
+    <View style={styles.container}>
+      {/* Local Image */}
+      <Image 
+        source={require('./assets/logo.png')}
+        style={styles.localImage}
+      />
+      
+      {/* Remote Image */}
+      <Image 
+        source={{
+          uri: 'https://picsum.photos/200/200',
+          headers: {
+            Authorization: 'Bearer token'
+          }
+        }}
+        style={styles.remoteImage}
+        onLoad={() => console.log('Image loaded')}
+        onError={(error) => console.log('Error loading image:', error)}
+      />
+      
+      {/* Image with Loading Indicator */}
+      <Image 
+        source={{ uri: 'https://picsum.photos/300/200' }}
+        style={styles.loadingImage}
+        defaultSource={require('./assets/placeholder.png')}
+        loadingIndicatorSource={require('./assets/loading.gif')}
+      />
+      
+      {/* Resized Image with Different Modes */}
+      <Image 
+        source={{ uri: 'https://picsum.photos/400/300' }}
+        style={styles.resizedImage}
+        resizeMode="cover" // 'cover', 'contain', 'stretch', 'repeat', 'center'
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+  },
+  localImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+  },
+  remoteImage: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+    borderRadius: 10,
+  },
+  loadingImage: {
+    width: 300,
+    height: 200,
+    marginBottom: 20,
+  },
+  resizedImage: {
+    width: '100%',
+    height: 200,
+    backgroundColor: '#ccc',
+  },
+});</code></pre>
+                    </div>
+
+                    <h3>Image Resize Modes</h3>
+                    <div class="tip-box">
+                        <h4><i class="fas fa-expand-arrows-alt"></i> Resize Mode Options</h4>
+                        <p>• <strong>cover:</strong> Scale image to cover the frame (may crop)<br>
+                        • <strong>contain:</strong> Scale image to fit inside frame<br>
+                        • <strong>stretch:</strong> Scale width and height independently<br>
+                        • <strong>repeat:</strong> Repeat image to cover frame<br>
+                        • <strong>center:</strong> Center image without scaling</p>
+                    </div>
+
+                    <h2><i class="fas fa-layer-group"></i> ImageBackground Component</h2>
+                    <p>ImageBackground allows you to use an image as a background with children components on top.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">ImageBackground Example</span>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import { ImageBackground, Text, View, StyleSheet } from 'react-native';
+
+const ImageBackgroundExample = () => {
+  return (
+    <ImageBackground
+      source={{ uri: 'https://picsum.photos/400/600' }}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+      imageStyle={styles.imageStyle} // Additional image styling
+    >
+      <View style={styles.overlay}>
+        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.subtitle}>Beautiful Background</Text>
+      </View>
+      
+      <View style={styles.content}>
+        <Text style={styles.description}>
+          ImageBackground allows you to place content
+          over an image with full control over styling.
+        </Text>
+      </View>
+    </ImageBackground>
+  );
+};
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  imageStyle: {
+    opacity: 0.8, // Make image slightly transparent
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 20,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: 'white',
+    marginTop: 10,
+  },
+  content: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    padding: 20,
+    margin: 20,
+    borderRadius: 10,
+  },
+  description: {
+    fontSize: 16,
+    color: '#333',
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-cog"></i> Advanced Image Handling</h2>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Image Optimization & Caching</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState } from 'react';
+import { View, Image, ActivityIndicator, Text } from 'react-native';
+
+const OptimizedImage = ({ source, style }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  return (
+    <View style={style}>
+      <Image
+        source={source}
+        style={[style, { position: 'absolute' }]}
+        onLoadStart={() => setLoading(true)}
+        onLoadEnd={() => setLoading(false)}
+        onError={() => {
+          setError(true);
+          setLoading(false);
+        }}
+        // Performance optimizations
+        fadeDuration={300} // Android only
+        progressiveRenderingEnabled={true} // Android only
+        cache="force-cache" // iOS only
+      />
+      
+      {loading && (
+        <View style={[style, styles.centered]}>
+          <ActivityIndicator size="large" color="#007AFF" />
+        </View>
+      )}
+      
+      {error && (
+        <View style={[style, styles.centered, styles.errorContainer]}>
+          <Text style={styles.errorText}>Failed to load image</Text>
+        </View>
+      )}
+    </View>
+  );
+};
+
+// Preload images for better performance
+const preloadImages = async (imageSources) => {
+  const promises = imageSources.map((source) => 
+    Image.prefetch(source)
+  );
+  
+  try {
+    await Promise.all(promises);
+    console.log('All images preloaded');
+  } catch (error) {
+    console.error('Error preloading images:', error);
+  }
+};
+
+// Get image size
+const getImageDimensions = async (uri) => {
+  return new Promise((resolve, reject) => {
+    Image.getSize(
+      uri,
+      (width, height) => resolve({ width, height }),
+      (error) => reject(error)
+    );
+  });
+};</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-images"></i> Working with Different Image Formats</h2>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Image Format Examples</span>
+                        </div>
+                        <pre><code class="language-typescript">const ImageFormats = () => {
+  return (
+    <View>
+      {/* Static Images - Automatically sized */}
+      <Image source={require('./assets/icon.png')} />
+      
+      {/* Network Images - Must specify dimensions */}
+      <Image 
+        source={{ uri: 'https://example.com/image.jpg' }}
+        style={{ width: 200, height: 200 }}
+      />
+      
+      {/* Base64 Images */}
+      <Image 
+        source={{ 
+          uri: 'data:image/png;base64,iVBORw0KGgoAAAANS...' 
+        }}
+        style={{ width: 50, height: 50 }}
+      />
+      
+      {/* Platform-specific images */}
+      <Image 
+        source={{
+          ios: require('./assets/image.ios.png'),
+          android: require('./assets/image.android.png'),
+        }}
+        style={{ width: 100, height: 100 }}
+      />
+      
+      {/* Resolution-specific images (image@2x.png, image@3x.png) */}
+      <Image source={require('./assets/image.png')} />
+    </View>
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="playground">
+                        <div class="playground-header">
+                            <h3><i class="fas fa-play-circle"></i> Image Gallery Demo</h3>
+                            <div class="playground-tabs">
+                                <button class="playground-tab active" onclick="switchPlaygroundTab(this, 'code')">Code</button>
+                                <button class="playground-tab" onclick="switchPlaygroundTab(this, 'preview')">Preview</button>
+                            </div>
+                        </div>
+                        <div class="playground-content">
+                            <div class="playground-editor" id="playground-code">
+                                <textarea class="editor-textarea">
+import React, { useState } from 'react';
+import { 
+  View, 
+  Image, 
+  TouchableOpacity, 
+  ScrollView, 
+  Modal,
+  StyleSheet 
+} from 'react-native';
+
+const ImageGallery = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  
+  const images = [
+    'https://picsum.photos/200/200?random=1',
+    'https://picsum.photos/200/200?random=2',
+    'https://picsum.photos/200/200?random=3',
+    'https://picsum.photos/200/200?random=4',
+    'https://picsum.photos/200/200?random=5',
+    'https://picsum.photos/200/200?random=6',
+  ];
+
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.gallery}>
+          {images.map((uri, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => setSelectedImage(uri)}
+              style={styles.thumbnail}
+            >
+              <Image 
+                source={{ uri }}
+                style={styles.thumbnailImage}
+                resizeMode="cover"
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+
+      <Modal
+        visible={!!selectedImage}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setSelectedImage(null)}
+      >
+        <TouchableOpacity 
+          style={styles.modalContainer}
+          onPress={() => setSelectedImage(null)}
+        >
+          <Image 
+            source={{ uri: selectedImage }}
+            style={styles.fullImage}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </Modal>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  gallery: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 10,
+  },
+  thumbnail: {
+    width: '31%',
+    aspectRatio: 1,
+    margin: '1.5%',
+  },
+  thumbnailImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  fullImage: {
+    width: '90%',
+    height: '70%',
+  },
+});</textarea>
+                            </div>
+                            <div class="playground-preview" id="playground-preview" style="display: none;">
+                                <div style="flex: 1; background: white;">
+                                    <div style="display: flex; flex-wrap: wrap; padding: 10px;">
+                                        <div style="width: 31%; margin: 1.5%; aspect-ratio: 1;">
+                                            <img src="https://picsum.photos/200/200?random=1" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+                                        </div>
+                                        <div style="width: 31%; margin: 1.5%; aspect-ratio: 1;">
+                                            <img src="https://picsum.photos/200/200?random=2" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+                                        </div>
+                                        <div style="width: 31%; margin: 1.5%; aspect-ratio: 1;">
+                                            <img src="https://picsum.photos/200/200?random=3" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+                                        </div>
+                                        <div style="width: 31%; margin: 1.5%; aspect-ratio: 1;">
+                                            <img src="https://picsum.photos/200/200?random=4" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+                                        </div>
+                                        <div style="width: 31%; margin: 1.5%; aspect-ratio: 1;">
+                                            <img src="https://picsum.photos/200/200?random=5" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+                                        </div>
+                                        <div style="width: 31%; margin: 1.5%; aspect-ratio: 1;">
+                                            <img src="https://picsum.photos/200/200?random=6" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Performance Tips</h4>
+                        <p>• Use appropriate image sizes - don't load 4K images for thumbnails<br>
+                        • Enable image caching for network images<br>
+                        • Use progressive loading for large images<br>
+                        • Consider using FastImage library for better performance<br>
+                        • Always specify dimensions for network images</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Image Knowledge Check</h3>
+                        <p class="quiz-question">Which prop must be specified for network images but not for local images?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                source
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                resizeMode
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                style with width and height
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                onLoad
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-camera"></i> Project: Photo Card Component</h3>
+                        <p class="project-description">Build a reusable photo card with overlay information:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="img1">
+                                <label for="img1">Create ImageBackground with gradient overlay</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="img2">
+                                <label for="img2">Add loading state with placeholder</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="img3">
+                                <label for="img3">Implement error handling with fallback image</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="img4">
+                                <label for="img4">Add title and description overlay</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="img5">
+                                <label for="img5">Make it responsive with proper aspect ratio</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'scrollview-flatlist': {
+                title: 'ScrollView & FlatList',
+                content: `
+                    <h1><i class="fas fa-scroll"></i> ScrollView & FlatList Components</h1>
+                    
+                    <p>Scrollable content is essential in mobile apps. React Native provides ScrollView for smaller lists and FlatList for efficient rendering of large data sets.</p>
+
+                    <h2><i class="fas fa-arrows-alt-v"></i> ScrollView Component</h2>
+                    <p>ScrollView renders all its children at once, making it suitable for small amounts of content.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">ScrollView Basics</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import { ScrollView, View, Text, StyleSheet, RefreshControl } from 'react-native';
+
+const ScrollViewExample = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    // Simulate API call
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+  return (
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      // Scroll properties
+      horizontal={false}
+      showsVerticalScrollIndicator={true}
+      showsHorizontalScrollIndicator={false}
+      
+      // Behavior properties
+      bounces={true}
+      scrollEnabled={true}
+      pagingEnabled={false}
+      
+      // Keyboard handling
+      keyboardDismissMode="on-drag" // 'none', 'on-drag', 'interactive'
+      keyboardShouldPersistTaps="handled" // 'always', 'never', 'handled'
+      
+      // Pull to refresh
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          colors={['#007AFF']} // Android
+          tintColor="#007AFF" // iOS
+        />
+      }
+      
+      // Scroll events
+      onScroll={(event) => {
+        const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+        console.log('Scroll position:', contentOffset.y);
+      }}
+      scrollEventThrottle={16} // For smooth 60fps
+    >
+      {[...Array(20)].map((_, index) => (
+        <View key={index} style={styles.item}>
+          <Text style={styles.itemText}>Item {index + 1}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+  },
+  contentContainer: {
+    paddingVertical: 20,
+  },
+  item: {
+    backgroundColor: 'white',
+    padding: 20,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  itemText: {
+    fontSize: 16,
+    color: '#333',
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-list"></i> FlatList Component</h2>
+                    <p>FlatList is optimized for long lists by only rendering items that are currently visible on screen.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">FlatList Implementation</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState, useCallback } from 'react';
+import {
+  FlatList,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+} from 'react-native';
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+const FlatListExample = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  // Load initial data
+  React.useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = async () => {
+    if (loading) return;
+    
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      const newUsers = Array.from({ length: 10 }, (_, i) => ({
+        id: \`\${page}-\${i}\`,
+        name: \`User \${(page - 1) * 10 + i + 1}\`,
+        email: \`user\${(page - 1) * 10 + i + 1}@example.com\`,
+        avatar: \`https://i.pravatar.cc/150?img=\${(page - 1) * 10 + i + 1}\`,
+      }));
+      
+      setUsers(prev => [...prev, ...newUsers]);
+      setPage(prev => prev + 1);
+      setHasMore(page < 5); // Limit to 5 pages
+      setLoading(false);
+    }, 1000);
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setUsers([]);
+    setPage(1);
+    setHasMore(true);
+    
+    // Reload data
+    setTimeout(() => {
+      loadUsers();
+      setRefreshing(false);
+    }, 1500);
+  }, []);
+
+  const renderItem = ({ item }: { item: User }) => (
+    <TouchableOpacity style={styles.userItem} activeOpacity={0.7}>
+      <Image source={{ uri: item.avatar }} style={styles.avatar} />
+      <View style={styles.userInfo}>
+        <Text style={styles.userName}>{item.name}</Text>
+        <Text style={styles.userEmail}>{item.email}</Text>
+      </View>
+      <Text style={styles.chevron}>›</Text>
+    </TouchableOpacity>
+  );
+
+  const renderFooter = () => {
+    if (!loading) return null;
+    return (
+      <View style={styles.footer}>
+        <ActivityIndicator size="small" color="#007AFF" />
+      </View>
+    );
+  };
+
+  const renderEmpty = () => (
+    <View style={styles.empty}>
+      <Text style={styles.emptyText}>No users found</Text>
+    </View>
+  );
+
+  const renderHeader = () => (
+    <View style={styles.header}>
+      <Text style={styles.headerText}>User Directory</Text>
+    </View>
+  );
+
+  return (
+    <FlatList
+      data={users}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      
+      // Performance optimizations
+      removeClippedSubviews={true}
+      maxToRenderPerBatch={10}
+      updateCellsBatchingPeriod={50}
+      initialNumToRender={10}
+      windowSize={10}
+      
+      // Header and Footer
+      ListHeaderComponent={renderHeader}
+      ListFooterComponent={renderFooter}
+      ListEmptyComponent={renderEmpty}
+      
+      // Separators
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
+      
+      // Pull to refresh
+      refreshing={refreshing}
+      onRefresh={onRefresh}
+      
+      // Infinite scroll
+      onEndReached={() => {
+        if (hasMore && !loading) {
+          loadUsers();
+        }
+      }}
+      onEndReachedThreshold={0.5}
+      
+      // Styling
+      contentContainerStyle={styles.contentContainer}
+      showsVerticalScrollIndicator={false}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    paddingBottom: 20,
+  },
+  header: {
+    padding: 20,
+    backgroundColor: '#007AFF',
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  userItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: 'white',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 15,
+  },
+  userInfo: {
+    flex: 1,
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 4,
+  },
+  userEmail: {
+    fontSize: 14,
+    color: '#666',
+  },
+  chevron: {
+    fontSize: 24,
+    color: '#999',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+    marginLeft: 80,
+  },
+  footer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 50,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#999',
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-exchange-alt"></i> ScrollView vs FlatList</h2>
+                    
+                    <div class="tip-box">
+                        <h4><i class="fas fa-balance-scale"></i> When to Use Each</h4>
+                        <p><strong>Use ScrollView when:</strong><br>
+                        • You have a small amount of content<br>
+                        • Content is heterogeneous (different types)<br>
+                        • You need precise scroll position control<br><br>
+                        <strong>Use FlatList when:</strong><br>
+                        • You have a large list of similar items<br>
+                        • Performance is critical<br>
+                        • You need lazy loading or infinite scroll<br>
+                        • Memory efficiency is important</p>
+                    </div>
+
+                    <h2><i class="fas fa-th"></i> Advanced List Patterns</h2>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Horizontal FlatList with Snap</span>
+                        </div>
+                        <pre><code class="language-typescript">const HorizontalList = () => {
+  const data = [
+    { id: '1', title: 'Card 1', color: '#FF6B6B' },
+    { id: '2', title: 'Card 2', color: '#4ECDC4' },
+    { id: '3', title: 'Card 3', color: '#45B7D1' },
+    { id: '4', title: 'Card 4', color: '#96CEB4' },
+  ];
+
+  return (
+    <FlatList
+      data={data}
+      horizontal
+      pagingEnabled
+      snapToInterval={CARD_WIDTH + 20} // Card width + margin
+      snapToAlignment="center"
+      decelerationRate="fast"
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => (
+        <View style={[
+          styles.card,
+          { backgroundColor: item.color }
+        ]}>
+          <Text style={styles.cardTitle}>{item.title}</Text>
+        </View>
+      )}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.horizontalList}
+    />
+  );
+};</code></pre>
+                    </div>
+
+                    <div class="playground">
+                        <div class="playground-header">
+                            <h3><i class="fas fa-play-circle"></i> Interactive List Demo</h3>
+                            <div class="playground-tabs">
+                                <button class="playground-tab active" onclick="switchPlaygroundTab(this, 'code')">Code</button>
+                                <button class="playground-tab" onclick="switchPlaygroundTab(this, 'preview')">Preview</button>
+                            </div>
+                        </div>
+                        <div class="playground-content">
+                            <div class="playground-editor" id="playground-code">
+                                <textarea class="editor-textarea">
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Switch,
+} from 'react-native';
+
+const InteractiveList = () => {
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [multiSelect, setMultiSelect] = useState(false);
+
+  const data = Array.from({ length: 20 }, (_, i) => ({
+    id: i.toString(),
+    title: \`Item \${i + 1}\`,
+    description: \`Description for item \${i + 1}\`,
+  }));
+
+  const toggleSelection = (id: string) => {
+    const newSelected = new Set(selectedIds);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      if (!multiSelect) {
+        newSelected.clear();
+      }
+      newSelected.add(id);
+    }
+    setSelectedIds(newSelected);
+  };
+
+  const renderItem = ({ item }) => {
+    const isSelected = selectedIds.has(item.id);
+    
+    return (
+      <TouchableOpacity
+        style={[
+          styles.item,
+          isSelected && styles.selectedItem
+        ]}
+        onPress={() => toggleSelection(item.id)}
+        activeOpacity={0.7}
+      >
+        <View style={styles.itemContent}>
+          <Text style={[
+            styles.itemTitle,
+            isSelected && styles.selectedText
+          ]}>
+            {item.title}
+          </Text>
+          <Text style={[
+            styles.itemDescription,
+            isSelected && styles.selectedText
+          ]}>
+            {item.description}
+          </Text>
+        </View>
+        {isSelected && (
+          <Text style={styles.checkmark}>✓</Text>
+        )}
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.controls}>
+        <Text style={styles.label}>Multi-select</Text>
+        <Switch
+          value={multiSelect}
+          onValueChange={setMultiSelect}
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={multiSelect ? '#007AFF' : '#f4f3f4'}
+        />
+      </View>
+      
+      <Text style={styles.selection}>
+        Selected: {selectedIds.size} items
+      </Text>
+      
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        extraData={selectedIds}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  controls: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  selection: {
+    padding: 10,
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 15,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: 'transparent',
+  },
+  selectedItem: {
+    borderColor: '#007AFF',
+    backgroundColor: '#f0f8ff',
+  },
+  itemContent: {
+    flex: 1,
+  },
+  itemTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  itemDescription: {
+    fontSize: 14,
+    color: '#666',
+  },
+  selectedText: {
+    color: '#007AFF',
+  },
+  checkmark: {
+    fontSize: 20,
+    color: '#007AFF',
+    fontWeight: 'bold',
+  },
+});</textarea>
+                            </div>
+                            <div class="playground-preview" id="playground-preview" style="display: none;">
+                                <div style="flex: 1; background: #f5f5f5;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: white; border-bottom: 1px solid #e0e0e0;">
+                                        <span style="font-size: 16px; font-weight: 600;">Multi-select</span>
+                                        <input type="checkbox" style="width: 20px; height: 20px;" />
+                                    </div>
+                                    <p style="padding: 10px; text-align: center; color: #666;">Selected: 0 items</p>
+                                    <div style="padding: 0 10px;">
+                                        <div style="background: white; padding: 15px; margin: 5px 0; border-radius: 8px; border: 2px solid transparent;">
+                                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Item 1</div>
+                                            <div style="font-size: 14px; color: #666;">Description for item 1</div>
+                                        </div>
+                                        <div style="background: #f0f8ff; padding: 15px; margin: 5px 0; border-radius: 8px; border: 2px solid #007AFF; display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px; color: #007AFF;">Item 2</div>
+                                                <div style="font-size: 14px; color: #007AFF;">Description for item 2</div>
+                                            </div>
+                                            <span style="font-size: 20px; color: #007AFF; font-weight: bold;">✓</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Performance Best Practices</h4>
+                        <p>• Use getItemLayout when items have fixed height<br>
+                        • Implement shouldComponentUpdate or React.memo for list items<br>
+                        • Avoid anonymous functions in renderItem<br>
+                        • Use keyExtractor for stable keys<br>
+                        • Set appropriate windowSize and maxToRenderPerBatch</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> List Knowledge Check</h3>
+                        <p class="quiz-question">Which prop improves FlatList performance by removing off-screen items?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                initialNumToRender
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                removeClippedSubviews
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                onEndReachedThreshold
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                windowSize
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-tasks"></i> Project: Social Feed</h3>
+                        <p class="project-description">Build a social media feed with FlatList:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="list1">
+                                <label for="list1">Create post card component with image</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="list2">
+                                <label for="list2">Implement pull-to-refresh</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="list3">
+                                <label for="list3">Add infinite scroll with loading indicator</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="list4">
+                                <label for="list4">Optimize with React.memo</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="list5">
+                                <label for="list5">Add like/comment interactions</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'textinput': {
+                title: 'TextInput & Forms',
+                content: `
+                    <h1><i class="fas fa-keyboard"></i> TextInput & Forms</h1>
+                    
+                    <p>TextInput is the fundamental component for entering text in React Native apps. Let's explore how to create robust forms with validation, keyboard handling, and great UX.</p>
+
+                    <h2><i class="fas fa-edit"></i> Basic TextInput</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">TextInput Examples</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState } from 'react';
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  Keyboard,
+  ScrollView,
+} from 'react-native';
+
+const TextInputExample = () => {
+  const [text, setText] = useState('');
+  const [password, setPassword] = useState('');
+  const [multiline, setMultiline] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Basic Text Input */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Basic Input</Text>
+          <TextInput
+            style={styles.input}
+            value={text}
+            onChangeText={setText}
+            placeholder="Enter text..."
+            placeholderTextColor="#999"
+          />
+        </View>
+
+        {/* Password Input */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Enter password..."
+            placeholderTextColor="#999"
+            secureTextEntry
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        {/* Email Input */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="email@example.com"
+            placeholderTextColor="#999"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            autoCompleteType="email"
+            textContentType="emailAddress"
+          />
+        </View>
+
+        {/* Phone Input */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            style={styles.input}
+            value={phone}
+            onChangeText={setPhone}
+            placeholder="(123) 456-7890"
+            placeholderTextColor="#999"
+            keyboardType="phone-pad"
+            maxLength={14}
+            textContentType="telephoneNumber"
+          />
+        </View>
+
+        {/* Multiline Input */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Comments</Text>
+          <TextInput
+            style={[styles.input, styles.multilineInput]}
+            value={multiline}
+            onChangeText={setMultiline}
+            placeholder="Enter your comments..."
+            placeholderTextColor="#999"
+            multiline
+            numberOfLines={4}
+            textAlignVertical="top"
+            maxLength={500}
+          />
+          <Text style={styles.charCount}>
+            {multiline.length}/500
+          </Text>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    fontSize: 16,
+    color: '#333',
+  },
+  multilineInput: {
+    height: 100,
+    paddingTop: 12,
+  },
+  charCount: {
+    textAlign: 'right',
+    color: '#666',
+    fontSize: 12,
+    marginTop: 5,
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-check-circle"></i> Form with Validation</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Complete Form Example</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from 'react-native';
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  [key: string]: string;
+}
+
+const SignUpForm = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Set<string>>(new Set());
+  const [showPassword, setShowPassword] = useState(false);
+
+  const validateField = (field: string, value: string): string => {
+    switch (field) {
+      case 'firstName':
+      case 'lastName':
+        return value.length < 2 ? 'Must be at least 2 characters' : '';
+      
+      case 'email':
+        const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        return !emailRegex.test(value) ? 'Invalid email address' : '';
+      
+      case 'password':
+        if (value.length < 8) return 'Must be at least 8 characters';
+        if (!/[A-Z]/.test(value)) return 'Must contain uppercase letter';
+        if (!/[0-9]/.test(value)) return 'Must contain number';
+        return '';
+      
+      case 'confirmPassword':
+        return value !== formData.password ? 'Passwords do not match' : '';
+      
+      default:
+        return '';
+    }
+  };
+
+  const handleChange = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    
+    if (touched.has(field)) {
+      const error = validateField(field, value);
+      setErrors(prev => ({ ...prev, [field]: error }));
+    }
+  };
+
+  const handleBlur = (field: string) => {
+    setTouched(prev => new Set(prev).add(field));
+    const error = validateField(field, formData[field as keyof FormData]);
+    setErrors(prev => ({ ...prev, [field]: error }));
+  };
+
+  const handleSubmit = () => {
+    // Validate all fields
+    const newErrors: FormErrors = {};
+    let hasErrors = false;
+
+    Object.keys(formData).forEach(field => {
+      const error = validateField(field, formData[field as keyof FormData]);
+      if (error) {
+        newErrors[field] = error;
+        hasErrors = true;
+      }
+    });
+
+    setErrors(newErrors);
+    setTouched(new Set(Object.keys(formData)));
+
+    if (!hasErrors) {
+      Alert.alert('Success', 'Form submitted successfully!');
+    }
+  };
+
+  const renderInput = (
+    field: keyof FormData,
+    label: string,
+    props: any = {}
+  ) => (
+    <View style={styles.inputGroup}>
+      <Text style={styles.label}>{label}</Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[
+            styles.input,
+            errors[field] && touched.has(field) && styles.inputError
+          ]}
+          value={formData[field]}
+          onChangeText={(value) => handleChange(field, value)}
+          onBlur={() => handleBlur(field)}
+          placeholderTextColor="#999"
+          {...props}
+        />
+        {field === 'password' && (
+          <TouchableOpacity
+            style={styles.eyeIcon}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Text>{showPassword ? '👁' : '👁‍🗨'}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      {errors[field] && touched.has(field) && (
+        <Text style={styles.errorText}>{errors[field]}</Text>
+      )}
+    </View>
+  );
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>Create Account</Text>
+
+        {renderInput('firstName', 'First Name', {
+          placeholder: 'John',
+          autoCapitalize: 'words',
+        })}
+
+        {renderInput('lastName', 'Last Name', {
+          placeholder: 'Doe',
+          autoCapitalize: 'words',
+        })}
+
+        {renderInput('email', 'Email', {
+          placeholder: 'john.doe@example.com',
+          keyboardType: 'email-address',
+          autoCapitalize: 'none',
+          autoCorrect: false,
+        })}
+
+        {renderInput('password', 'Password', {
+          placeholder: 'Min 8 characters',
+          secureTextEntry: !showPassword,
+          autoCapitalize: 'none',
+        })}
+
+        {renderInput('confirmPassword', 'Confirm Password', {
+          placeholder: 'Re-enter password',
+          secureTextEntry: true,
+          autoCapitalize: 'none',
+        })}
+
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={handleSubmit}
+        >
+          <Text style={styles.submitButtonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+  },
+  inputContainer: {
+    position: 'relative',
+  },
+  input: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    fontSize: 16,
+    color: '#333',
+  },
+  inputError: {
+    borderColor: '#ff3b30',
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 15,
+    top: 12,
+  },
+  errorText: {
+    color: '#ff3b30',
+    fontSize: 12,
+    marginTop: 5,
+  },
+  submitButton: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+});</code></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> TextInput Props</h4>
+                        <p>• <strong>keyboardType:</strong> default, numeric, email-address, phone-pad<br>
+                        • <strong>autoCapitalize:</strong> none, sentences, words, characters<br>
+                        • <strong>autoCorrect:</strong> Enable/disable autocorrection<br>
+                        • <strong>secureTextEntry:</strong> Hide password input<br>
+                        • <strong>returnKeyType:</strong> done, go, next, search, send</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Form Knowledge Check</h3>
+                        <p class="quiz-question">Which prop should you use to hide password input?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                hideText
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                secureTextEntry
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                passwordMode
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                textHidden
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-clipboard-list"></i> Project: Login Form</h3>
+                        <p class="project-description">Build a complete login form with remember me:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="form1">
+                                <label for="form1">Create email and password inputs</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="form2">
+                                <label for="form2">Add form validation</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="form3">
+                                <label for="form3">Implement remember me checkbox</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="form4">
+                                <label for="form4">Add loading state for submission</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="form5">
+                                <label for="form5">Handle keyboard dismiss on submit</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'touchables': {
+                title: 'Touchable Components',
+                content: `
+                    <h1><i class="fas fa-hand-pointer"></i> Touchable Components</h1>
+                    
+                    <p>Touchable components are the primary way to capture taps and provide feedback in React Native. Let's explore all the touchable options and when to use each.</p>
+
+                    <h2><i class="fas fa-square"></i> TouchableOpacity</h2>
+                    <p>Reduces opacity when pressed - the most common touchable component.</p>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">TouchableOpacity Example</span>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+
+const TouchableOpacityExample = () => {
+  return (
+    <View style={styles.container}>
+      {/* Basic Button */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => console.log('Button pressed')}
+        activeOpacity={0.7} // Controls opacity when pressed (0-1)
+      >
+        <Text style={styles.buttonText}>Press Me</Text>
+      </TouchableOpacity>
+
+      {/* Icon Button */}
+      <TouchableOpacity
+        style={styles.iconButton}
+        onPress={() => console.log('Icon pressed')}
+        onLongPress={() => console.log('Long pressed!')}
+        delayLongPress={500} // Milliseconds
+      >
+        <Text style={styles.icon}>❤️</Text>
+      </TouchableOpacity>
+
+      {/* Disabled Button */}
+      <TouchableOpacity
+        style={[styles.button, styles.disabledButton]}
+        onPress={() => console.log('This won\\'t fire')}
+        disabled={true}
+      >
+        <Text style={[styles.buttonText, styles.disabledText]}>
+          Disabled
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  iconButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#FF3B30',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    alignSelf: 'center',
+  },
+  icon: {
+    fontSize: 24,
+  },
+  disabledButton: {
+    backgroundColor: '#ccc',
+  },
+  disabledText: {
+    color: '#666',
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-hand-rock"></i> Other Touchable Components</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">All Touchable Types</span>
+                        </div>
+                        <pre><code class="language-typescript">import React from 'react';
+import {
+  View,
+  Text,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  TouchableNativeFeedback,
+  Platform,
+  StyleSheet,
+} from 'react-native';
+
+const TouchableExamples = () => {
+  return (
+    <View style={styles.container}>
+      {/* TouchableHighlight - Shows underlay color */}
+      <TouchableHighlight
+        style={styles.highlight}
+        onPress={() => console.log('Highlight pressed')}
+        underlayColor="#0051CC" // Color shown when pressed
+        onShowUnderlay={() => console.log('Underlay shown')}
+        onHideUnderlay={() => console.log('Underlay hidden')}
+      >
+        <Text style={styles.text}>TouchableHighlight</Text>
+      </TouchableHighlight>
+
+      {/* TouchableWithoutFeedback - No visual feedback */}
+      <TouchableWithoutFeedback
+        onPress={() => console.log('No feedback press')}
+      >
+        <View style={styles.withoutFeedback}>
+          <Text style={styles.text}>TouchableWithoutFeedback</Text>
+          <Text style={styles.subtitle}>No visual feedback</Text>
+        </View>
+      </TouchableWithoutFeedback>
+
+      {/* TouchableNativeFeedback - Android only ripple */}
+      {Platform.OS === 'android' && (
+        <TouchableNativeFeedback
+          onPress={() => console.log('Native feedback')}
+          background={TouchableNativeFeedback.Ripple('#fff', false)}
+        >
+          <View style={styles.nativeFeedback}>
+            <Text style={styles.text}>TouchableNativeFeedback</Text>
+            <Text style={styles.subtitle}>Android ripple effect</Text>
+          </View>
+        </TouchableNativeFeedback>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+  highlight: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  withoutFeedback: {
+    backgroundColor: '#34C759',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  nativeFeedback: {
+    backgroundColor: '#FF9500',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 20,
+    elevation: 4,
+  },
+  text: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  subtitle: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 4,
+  },
+});</code></pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Platform Considerations</h4>
+                        <p>• TouchableNativeFeedback is Android-only<br>
+                        • Always provide fallback for iOS when using native feedback<br>
+                        • Test touch areas on real devices<br>
+                        • Minimum touch target should be 44x44 points</p>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-gamepad"></i> Project: Button Component</h3>
+                        <p class="project-description">Create a reusable button component:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="touch1">
+                                <label for="touch1">Support different variants (primary, secondary, danger)</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="touch2">
+                                <label for="touch2">Add loading state with ActivityIndicator</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="touch3">
+                                <label for="touch3">Implement icon support</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="touch4">
+                                <label for="touch4">Add haptic feedback</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="touch5">
+                                <label for="touch5">Create pressed state animations</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'modal-alert': {
+                title: 'Modal & Alerts',
+                content: `
+                    <h1><i class="fas fa-window-restore"></i> Modal & Alerts</h1>
+                    
+                    <p>Modals and alerts are essential for displaying important information and gathering user input. Let's explore how to use them effectively.</p>
+
+                    <h2><i class="fas fa-layer-group"></i> Modal Component</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Modal Examples</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
+
+const ModalExample = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [fullScreenModal, setFullScreenModal] = useState(false);
+
+  return (
+    <View style={styles.container}>
+      {/* Bottom Sheet Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.bottomSheet}>
+                <View style={styles.handle} />
+                <Text style={styles.modalTitle}>Bottom Sheet</Text>
+                <Text style={styles.modalText}>
+                  This is a bottom sheet modal that slides up from the bottom.
+                </Text>
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={styles.modalButtonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      {/* Full Screen Modal */}
+      <Modal
+        animationType="fade"
+        transparent={false}
+        visible={fullScreenModal}
+        onRequestClose={() => setFullScreenModal(false)}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.fullScreenModal}>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setFullScreenModal(false)}
+          >
+            <Text style={styles.closeButtonText}>✕</Text>
+          </TouchableOpacity>
+          <Text style={styles.fullScreenTitle}>Full Screen Modal</Text>
+          <Text style={styles.fullScreenText}>
+            This modal takes up the entire screen.
+          </Text>
+        </View>
+      </Modal>
+
+      {/* Trigger Buttons */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.buttonText}>Show Bottom Sheet</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, styles.secondaryButton]}
+        onPress={() => setFullScreenModal(true)}
+      >
+        <Text style={styles.buttonText}>Show Full Screen</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 15,
+    alignItems: 'center',
+  },
+  secondaryButton: {
+    backgroundColor: '#34C759',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  bottomSheet: {
+    backgroundColor: 'white',
+    paddingTop: 12,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  handle: {
+    width: 40,
+    height: 4,
+    backgroundColor: '#ccc',
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  fullScreenModal: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    fontSize: 24,
+    color: '#333',
+  },
+  fullScreenTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  fullScreenText: {
+    fontSize: 16,
+    color: '#666',
+  },
+});</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-exclamation-triangle"></i> Alert API</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Alert Examples</span>
+                        </div>
+                        <pre><code class="language-typescript">import { Alert, Platform } from 'react-native';
+
+// Simple Alert
+const showSimpleAlert = () => {
+  Alert.alert('Alert Title', 'This is a simple alert message.');
+};
+
+// Alert with Buttons
+const showConfirmAlert = () => {
+  Alert.alert(
+    'Delete Item',
+    'Are you sure you want to delete this item?',
+    [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => console.log('Delete pressed'),
+        style: 'destructive', // iOS only - makes text red
+      },
+    ],
+    { cancelable: false } // Android - prevents dismissing by tapping outside
+  );
+};
+
+// iOS-only Prompt
+const showPrompt = () => {
+  if (Platform.OS === 'ios') {
+    Alert.prompt(
+      'Enter Name',
+      'What is your name?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: (text) => console.log('Name:', text),
+        },
+      ],
+      'plain-text', // 'plain-text', 'secure-text', 'login-password'
+      'John Doe', // Default value
+      'default' // Keyboard type
+    );
+  } else {
+    // For Android, you'd need to use a Modal with TextInput
+    console.log('Prompt is iOS only');
+  }
+};</code></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Modal Best Practices</h4>
+                        <p>• Always handle onRequestClose for Android back button<br>
+                        • Use transparent modals for overlays<br>
+                        • Consider accessibility with proper labels<br>
+                        • Test modal behavior on both platforms<br>
+                        • Avoid nested modals</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Modal Knowledge Check</h3>
+                        <p class="quiz-question">Which prop is required for Android back button handling in Modal?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                onClose
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                onRequestClose
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                onBackPress
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                onDismiss
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-window-maximize"></i> Project: Custom Alert System</h3>
+                        <p class="project-description">Build a custom alert component:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="modal1">
+                                <label for="modal1">Create custom alert modal component</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="modal2">
+                                <label for="modal2">Support success, warning, error styles</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="modal3">
+                                <label for="modal3">Add animation for show/hide</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="modal4">
+                                <label for="modal4">Implement auto-dismiss option</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="modal5">
+                                <label for="modal5">Create queue for multiple alerts</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'activityindicator': {
+                title: 'ActivityIndicator',
+                content: `
+                    <h1><i class="fas fa-spinner"></i> ActivityIndicator Component</h1>
+                    
+                    <p>ActivityIndicator displays a circular loading indicator, essential for showing loading states in your app.</p>
+
+                    <h2><i class="fas fa-circle-notch"></i> Basic Usage</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">ActivityIndicator Examples</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+
+const ActivityIndicatorExample = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  const loadData = async () => {
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setData(['Item 1', 'Item 2', 'Item 3']);
+      setLoading(false);
+    }, 2000);
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Basic Indicators */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Sizes & Colors</Text>
+        <View style={styles.row}>
+          <ActivityIndicator size="small" color="#007AFF" />
+          <ActivityIndicator size="large" color="#007AFF" />
+          <ActivityIndicator size="large" color="#FF3B30" />
+          <ActivityIndicator size="large" color="#34C759" />
+        </View>
+      </View>
+
+      {/* Loading State Example */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Loading State</Text>
+        {loading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#007AFF" />
+            <Text style={styles.loadingText}>Loading data...</Text>
+          </View>
+        ) : data.length > 0 ? (
+          <FlatList
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.listItem}>
+                <Text>{item}</Text>
+              </View>
+            )}
+          />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={loadData}>
+            <Text style={styles.buttonText}>Load Data</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
+      {/* Full Screen Loading */}
+      {loading && (
+        <View style={styles.fullScreenLoading}>
+          <View style={styles.loadingBox}>
+            <ActivityIndicator size="large" color="white" />
+            <Text style={styles.fullScreenLoadingText}>
+              Please wait...
+            </Text>
+          </View>
+        </View>
+      )}
+    </View>
+  );
+};
+
+// Custom Loading Component
+const LoadingOverlay = ({ visible, text = 'Loading...' }) => {
+  if (!visible) return null;
+
+  return (
+    <View style={styles.overlay}>
+      <View style={styles.overlayContent}>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <Text style={styles.overlayText}>{text}</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  section: {
+    marginBottom: 30,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 15,
+    color: '#333',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  loadingContainer: {
+    padding: 40,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#666',
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  listItem: {
+    padding: 15,
+    backgroundColor: 'white',
+    marginBottom: 10,
+    borderRadius: 8,
+  },
+  fullScreenLoading: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingBox: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 30,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  fullScreenLoadingText: {
+    color: 'white',
+    marginTop: 10,
+    fontSize: 16,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlayContent: {
+    alignItems: 'center',
+  },
+  overlayText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+});</code></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Loading Best Practices</h4>
+                        <p>• Always show loading state for async operations<br>
+                        • Provide meaningful loading messages<br>
+                        • Consider skeleton screens for better UX<br>
+                        • Avoid blocking the entire screen unless necessary<br>
+                        • Set minimum loading time to prevent flashing</p>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-hourglass-half"></i> Project: Loading Component</h3>
+                        <p class="project-description">Create a reusable loading component:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="activity1">
+                                <label for="activity1">Build skeleton screen loader</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="activity2">
+                                <label for="activity2">Add progress percentage support</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="activity3">
+                                <label for="activity3">Create custom animated spinner</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="activity4">
+                                <label for="activity4">Implement loading queue system</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="activity5">
+                                <label for="activity5">Add timeout handling</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'statusbar': {
+                title: 'StatusBar',
+                content: `
+                    <h1><i class="fas fa-mobile-alt"></i> StatusBar Component</h1>
+                    
+                    <p>The StatusBar component allows you to control the app status bar appearance. It's crucial for creating immersive experiences.</p>
+
+                    <h2><i class="fas fa-adjust"></i> StatusBar Control</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">StatusBar Examples</span>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  Platform,
+} from 'react-native';
+
+const StatusBarExample = () => {
+  const [hidden, setHidden] = useState(false);
+  const [style, setStyle] = useState('default');
+  const [backgroundColor, setBackgroundColor] = useState('#007AFF');
+
+  return (
+    <>
+      <StatusBar
+        barStyle={style} // 'default', 'light-content', 'dark-content'
+        backgroundColor={backgroundColor} // Android only
+        hidden={hidden}
+        animated={true}
+        showHideTransition="fade" // iOS only: 'fade', 'slide'
+        networkActivityIndicatorVisible={false} // iOS only
+        translucent={false} // Android only
+      />
+      
+      <SafeAreaView style={[styles.container, { backgroundColor }]}>
+        <View style={styles.content}>
+          <Text style={styles.title}>StatusBar Control</Text>
+          
+          {/* Toggle Visibility */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setHidden(!hidden)}
+          >
+            <Text style={styles.buttonText}>
+              {hidden ? 'Show' : 'Hide'} StatusBar
+            </Text>
+          </TouchableOpacity>
+          
+          {/* Change Style */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Bar Style</Text>
+            <View style={styles.row}>
+              <TouchableOpacity
+                style={[styles.chip, style === 'default' && styles.activeChip]}
+                onPress={() => setStyle('default')}
+              >
+                <Text style={styles.chipText}>Default</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[styles.chip, style === 'light-content' && styles.activeChip]}
+                onPress={() => setStyle('light-content')}
+              >
+                <Text style={styles.chipText}>Light</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[styles.chip, style === 'dark-content' && styles.activeChip]}
+                onPress={() => setStyle('dark-content')}
+              >
+                <Text style={styles.chipText}>Dark</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          
+          {/* Change Background Color (Android) */}
+          {Platform.OS === 'android' && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Background Color</Text>
+              <View style={styles.row}>
+                {['#007AFF', '#FF3B30', '#34C759', '#000000'].map(color => (
+                  <TouchableOpacity
+                    key={color}
+                    style={[styles.colorBox, { backgroundColor: color }]}
+                    onPress={() => setBackgroundColor(color)}
+                  />
+                ))}
+              </View>
+            </View>
+          )}
+        </View>
+      </SafeAreaView>
+    </>
+  );
+};
+
+// Screen-specific StatusBar
+const ScreenWithCustomStatusBar = () => {
+  return (
+    <View style={styles.screen}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="#FF3B30"
+      />
+      <View style={[styles.header, { backgroundColor: '#FF3B30' }]}>
+        <Text style={styles.headerText}>Custom StatusBar Screen</Text>
+      </View>
+      <View style={styles.screenContent}>
+        <Text>This screen has its own StatusBar configuration</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    marginTop: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: '#333',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  chip: {
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: '#f0f0f0',
+  },
+  activeChip: {
+    backgroundColor: '#007AFF',
+  },
+  chipText: {
+    fontSize: 14,
+    color: '#333',
+  },
+  colorBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: 'white',
+  },
+  screen: {
+    flex: 1,
+  },
+  header: {
+    paddingTop: 50,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  screenContent: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+});</code></pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Platform Differences</h4>
+                        <p>• backgroundColor only works on Android<br>
+                        • iOS uses the background color of the view behind StatusBar<br>
+                        • translucent property is Android-only<br>
+                        • Always test on both platforms<br>
+                        • Consider using SafeAreaView with StatusBar</p>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> StatusBar Quiz</h3>
+                        <p class="quiz-question">Which prop controls text color in the status bar?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                textColor
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                barStyle
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                style
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                color
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-bars"></i> Project: Dynamic StatusBar</h3>
+                        <p class="project-description">Create a dynamic status bar system:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="status1">
+                                <label for="status1">Create StatusBar manager hook</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="status2">
+                                <label for="status2">Implement per-screen configuration</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="status3">
+                                <label for="status3">Add theme-based styling</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="status4">
+                                <label for="status4">Handle orientation changes</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="status5">
+                                <label for="status5">Create immersive mode toggle</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Add more topics...
         };
 
         // Global state
