@@ -1132,7 +1132,7 @@
             { id: 'reanimated2', title: 'Reanimated 2', completed: false },
             { id: 'shared-element', title: 'Shared Element Transitions', completed: false },
             { id: 'lottie', title: 'Lottie Animations', completed: false },
-                        { id: 'animation-practices', title: 'Animation Best Practices', completed: false }
+            { id: 'animation-practices', title: 'Animation Best Practices', completed: false }
 
           ]
         },
@@ -13500,7 +13500,7 @@ describe('TodoStore', () => {
       },
 
       'react-navigation': {
-    content: `
+        content: `
         <div class="content-section">
             <h1>React Navigation Setup</h1>
             
@@ -13944,42 +13944,42 @@ function App() {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What is the difference between navigate() and push()?",
             options: [
-                "They are the same",
-                "navigate() goes to existing screen or creates new, push() always adds new",
-                "push() is faster",
-                "navigate() only works with params"
+              "They are the same",
+              "navigate() goes to existing screen or creates new, push() always adds new",
+              "push() is faster",
+              "navigate() only works with params"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "When should you use useFocusEffect?",
             options: [
-                "For component mount/unmount",
-                "For screen focus/blur events",
-                "For navigation params",
-                "For styling"
+              "For component mount/unmount",
+              "For screen focus/blur events",
+              "For navigation params",
+              "For styling"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What does NavigationContainer do?",
             options: [
-                "Renders screens",
-                "Manages navigation state and links",
-                "Handles gestures",
-                "Styles the header"
+              "Renders screens",
+              "Manages navigation state and links",
+              "Handles gestures",
+              "Styles the header"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Multi-Screen App with Navigation",
-        description: "Build an app with multiple screens and proper navigation setup",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Multi-Screen App with Navigation",
+          description: "Build an app with multiple screens and proper navigation setup",
+          requirements: [
             "Setup React Navigation with TypeScript",
             "Create at least 5 different screens",
             "Implement navigation with params",
@@ -13987,17 +13987,17 @@ function App() {
             "Handle back navigation properly",
             "Implement deep linking",
             "Add navigation state persistence"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use TypeScript for better type safety",
             "Create a navigation service for navigation outside components",
             "Implement proper loading states",
             "Test deep links on both platforms"
-        ]
-    }
-},
-'stack-navigator': {
-    content: `
+          ]
+        }
+      },
+      'stack-navigator': {
+        content: `
         <div class="content-section">
             <h1>Stack Navigator</h1>
             
@@ -14499,42 +14499,42 @@ const ListScreen = () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What is the purpose of CardStyleInterpolators?",
             options: [
-                "To style the card component",
-                "To define screen transition animations",
-                "To handle gestures",
-                "To configure headers"
+              "To style the card component",
+              "To define screen transition animations",
+              "To handle gestures",
+              "To configure headers"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How do you create a modal presentation?",
             options: [
-                "Use mode='modal' on Stack.Navigator",
-                "Use presentation='modal' in screenOptions",
-                "Both A and B",
-                "Use isModal={true}"
+              "Use mode='modal' on Stack.Navigator",
+              "Use presentation='modal' in screenOptions",
+              "Both A and B",
+              "Use isModal={true}"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What does gestureResponseDistance control?",
             options: [
-                "Animation speed",
-                "Distance from edge to start gesture",
-                "Swipe velocity",
-                "Screen size"
+              "Animation speed",
+              "Distance from edge to start gesture",
+              "Swipe velocity",
+              "Screen size"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Instagram-like Navigation",
-        description: "Build an Instagram-style app with complex stack navigation",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Instagram-like Navigation",
+          description: "Build an Instagram-style app with complex stack navigation",
+          requirements: [
             "Home feed with push to details",
             "Modal presentation for create post",
             "Nested stacks for profile sections",
@@ -14542,17 +14542,17 @@ const ListScreen = () => {
             "Floating/transparent headers",
             "Gesture handling with form validation",
             "Image viewer with swipe to dismiss"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use presentation modes effectively",
             "Implement custom transitions for image viewer",
             "Handle back gesture on forms with unsaved changes",
             "Optimize list performance with proper FlatList config"
-        ]
-    }
-},
-'tab-navigator': {
-    content: `
+          ]
+        }
+      },
+      'tab-navigator': {
+        content: `
         <div class="content-section">
             <h1>Tab Navigator</h1>
             
@@ -15099,42 +15099,42 @@ const AnimatedTabBar = ({ state, navigation }) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the difference between shifting and non-shifting material bottom tabs?",
             options: [
-                "Shifting changes tab colors, non-shifting doesn't",
-                "Shifting shows labels only for active tab",
-                "Both A and B",
-                "There's no difference"
+              "Shifting changes tab colors, non-shifting doesn't",
+              "Shifting shows labels only for active tab",
+              "Both A and B",
+              "There's no difference"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "How do you hide the tab bar on specific screens?",
             options: [
-                "Set tabBarVisible: false",
-                "Use display: 'none' in tabBarStyle",
-                "Remove the screen from tabs",
-                "Use hideTabBar prop"
+              "Set tabBarVisible: false",
+              "Use display: 'none' in tabBarStyle",
+              "Remove the screen from tabs",
+              "Use hideTabBar prop"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What does the lazy prop do in tab navigators?",
             options: [
-                "Makes animations slower",
-                "Delays tab rendering until focused",
-                "Disables swipe gestures",
-                "Reduces tab bar height"
+              "Makes animations slower",
+              "Delays tab rendering until focused",
+              "Disables swipe gestures",
+              "Reduces tab bar height"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Social Media App Navigation",
-        description: "Build a social media app with complex tab navigation like Instagram or Twitter",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Social Media App Navigation",
+          description: "Build a social media app with complex tab navigation like Instagram or Twitter",
+          requirements: [
             "Bottom tabs with custom icons and badges",
             "Top tabs within home screen for different feeds",
             "Nested stack navigation within each tab",
@@ -15142,17 +15142,17 @@ const AnimatedTabBar = ({ state, navigation }) => {
             "Hide tab bar on detail screens",
             "Profile tab with top tabs for posts/followers",
             "Dynamic tabs based on user permissions"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use getFocusedRouteNameFromRoute for nested navigation",
             "Implement proper lazy loading for performance",
             "Create reusable tab bar component",
             "Handle deep linking to nested screens"
-        ]
-    }
-},
-'drawer-navigator': {
-    content: `
+          ]
+        }
+      },
+      'drawer-navigator': {
+        content: `
         <div class="content-section">
             <h1>Drawer Navigator</h1>
             
@@ -15699,42 +15699,42 @@ function ScreenWithDrawerControl({ navigation }) {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What are the different drawerType options?",
             options: [
-                "slide, front, back",
-                "slide, front, back, permanent",
-                "left, right, center",
-                "push, overlay, slide"
+              "slide, front, back",
+              "slide, front, back, permanent",
+              "left, right, center",
+              "push, overlay, slide"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How do you programmatically open the drawer?",
             options: [
-                "navigation.openDrawer()",
-                "navigation.showDrawer()",
-                "navigation.drawer.open()",
-                "navigation.toggleDrawer(true)"
+              "navigation.openDrawer()",
+              "navigation.showDrawer()",
+              "navigation.drawer.open()",
+              "navigation.toggleDrawer(true)"
             ],
             correct: 0
-        },
-        {
+          },
+          {
             question: "What does swipeEdgeWidth control?",
             options: [
-                "Drawer width",
-                "Swipe gesture speed",
-                "Width of swipeable area from screen edge",
-                "Animation duration"
+              "Drawer width",
+              "Swipe gesture speed",
+              "Width of swipeable area from screen edge",
+              "Animation duration"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Dashboard App with Drawer",
-        description: "Build a dashboard app with complex drawer navigation",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Dashboard App with Drawer",
+          description: "Build a dashboard app with complex drawer navigation",
+          requirements: [
             "Custom drawer header with user info",
             "Sectioned drawer items",
             "Nested navigation (drawer + tabs + stack)",
@@ -15742,18 +15742,18 @@ function ScreenWithDrawerControl({ navigation }) {
             "Animated drawer with custom transitions",
             "Badge notifications in drawer",
             "Settings panel accessible from drawer"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use DrawerContentScrollView for custom content",
             "Implement proper authentication flow",
             "Add animations using useDrawerProgress",
             "Consider using drawer for app-wide settings"
-        ]
-    }
-},
+          ]
+        }
+      },
 
-'nested-navigation': {
-    content: `
+      'nested-navigation': {
+        content: `
         <div class="content-section">
             <h1>Navigation Patterns</h1>
             
@@ -16320,42 +16320,42 @@ function App() {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the best way to handle authentication navigation?",
             options: [
-                "Use conditional rendering in NavigationContainer",
-                "Navigate between auth and app screens",
-                "Always show login screen first",
-                "Use separate apps"
+              "Use conditional rendering in NavigationContainer",
+              "Navigate between auth and app screens",
+              "Always show login screen first",
+              "Use separate apps"
             ],
             correct: 0
-        },
-        {
+          },
+          {
             question: "How do you navigate to deeply nested screens?",
             options: [
-                "Navigate multiple times",
-                "Use nested params with screen names",
-                "Can't navigate to nested screens",
-                "Use global variables"
+              "Navigate multiple times",
+              "Use nested params with screen names",
+              "Can't navigate to nested screens",
+              "Use global variables"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What's the purpose of NavigationService?",
             options: [
-                "To style navigation",
-                "To navigate from outside React components",
-                "To handle errors",
-                "To create navigators"
+              "To style navigation",
+              "To navigate from outside React components",
+              "To handle errors",
+              "To create navigators"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "E-commerce App Navigation",
-        description: "Build a complete e-commerce app with complex navigation patterns",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "E-commerce App Navigation",
+          description: "Build a complete e-commerce app with complex navigation patterns",
+          requirements: [
             "Authentication flow with onboarding",
             "Tab navigation with nested stacks",
             "Product search with filters",
@@ -16364,17 +16364,17 @@ function App() {
             "User profile with settings",
             "Modal patterns for quick actions",
             "Error handling and recovery"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use conditional navigation for auth",
             "Implement wizard pattern for checkout",
             "Create reusable navigation components",
             "Handle all edge cases properly"
-        ]
-    }
-},
-'deep-linking': {
-    content: `
+          ]
+        }
+      },
+      'deep-linking': {
+        content: `
         <div class="content-section">
             <h1>Deep Linking</h1>
             
@@ -16936,42 +16936,42 @@ async function createBranchLink(product) {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's required for Universal Links on iOS?",
             options: [
-                "Only URL scheme configuration",
-                "Apple App Site Association file on server",
-                "Just Info.plist configuration",
-                "Nothing special"
+              "Only URL scheme configuration",
+              "Apple App Site Association file on server",
+              "Just Info.plist configuration",
+              "Nothing special"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How do you test deep links in development?",
             options: [
-                "Only on real devices",
-                "Using uri-scheme CLI or platform commands",
-                "Can't test in development",
-                "Only through push notifications"
+              "Only on real devices",
+              "Using uri-scheme CLI or platform commands",
+              "Can't test in development",
+              "Only through push notifications"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What's the benefit of using Firebase Dynamic Links?",
             options: [
-                "They're faster",
-                "They work across app installs and provide analytics",
-                "They're required for deep linking",
-                "They only work on Android"
+              "They're faster",
+              "They work across app installs and provide analytics",
+              "They're required for deep linking",
+              "They only work on Android"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Content Sharing App",
-        description: "Build an app with comprehensive deep linking for content sharing",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Content Sharing App",
+          description: "Build an app with comprehensive deep linking for content sharing",
+          requirements: [
             "Configure deep linking for both platforms",
             "Implement Universal/App Links",
             "Handle authentication in deep links",
@@ -16980,17 +16980,17 @@ async function createBranchLink(product) {
             "Handle app install attribution",
             "Implement referral system with deep links",
             "Test all deep link scenarios"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use Firebase Dynamic Links for better analytics",
             "Implement proper URL validation",
             "Handle edge cases like expired content",
             "Test with app in different states"
-        ]
-    }
-},
-'navigation-params': {
-    content: `
+          ]
+        }
+      },
+      'navigation-params': {
+        content: `
         <div class="content-section">
             <h1>Navigation Performance</h1>
             
@@ -17543,42 +17543,42 @@ const NavigationPerformanceChecklist = {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the benefit of lazy loading screens?",
             options: [
-                "Better animations",
-                "Reduced initial bundle size and memory usage",
-                "Easier development",
-                "Better deep linking"
+              "Better animations",
+              "Reduced initial bundle size and memory usage",
+              "Easier development",
+              "Better deep linking"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "When should you use unmountOnBlur?",
             options: [
-                "Always",
-                "Never",
-                "For memory-intensive screens",
-                "Only for modals"
+              "Always",
+              "Never",
+              "For memory-intensive screens",
+              "Only for modals"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What does removeClippedSubviews do in FlatList?",
             options: [
-                "Removes items from data",
-                "Unmounts items outside viewport",
-                "Clips the list view",
-                "Removes separators"
+              "Removes items from data",
+              "Unmounts items outside viewport",
+              "Clips the list view",
+              "Removes separators"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Performance-Optimized News App",
-        description: "Build a news app with optimized navigation for smooth performance",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Performance-Optimized News App",
+          description: "Build a news app with optimized navigation for smooth performance",
+          requirements: [
             "Implement lazy loading for all screens",
             "Optimize list views with large datasets",
             "Add performance monitoring",
@@ -17587,17 +17587,17 @@ const NavigationPerformanceChecklist = {
             "Cache navigation state efficiently",
             "Track and report slow transitions",
             "Optimize images in navigation"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use React.memo and useMemo wisely",
             "Implement virtual scrolling for long lists",
             "Monitor bundle size regularly",
             "Test on various devices and network conditions"
-        ]
-    }
-},
-'animated-api': {
-    content: `
+          ]
+        }
+      },
+      'animated-api': {
+        content: `
         <div class="content-section">
             <h1>Animated API Basics</h1>
             
@@ -18070,42 +18070,42 @@ const SlideInMenu = ({ visible }) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "Which properties can use useNativeDriver?",
             options: [
-                "All properties",
-                "Transform and opacity only",
-                "Layout properties only",
-                "Color properties only"
+              "All properties",
+              "Transform and opacity only",
+              "Layout properties only",
+              "Color properties only"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What does interpolation do in animations?",
             options: [
-                "Makes animations faster",
-                "Maps input values to output values",
-                "Combines multiple animations",
-                "Loops animations"
+              "Makes animations faster",
+              "Maps input values to output values",
+              "Combines multiple animations",
+              "Loops animations"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "Which animation type is best for natural motion?",
             options: [
-                "Timing with linear easing",
-                "Decay",
-                "Spring",
-                "Loop"
+              "Timing with linear easing",
+              "Decay",
+              "Spring",
+              "Loop"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Animated Onboarding Flow",
-        description: "Create an engaging onboarding experience with various animations",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Animated Onboarding Flow",
+          description: "Create an engaging onboarding experience with various animations",
+          requirements: [
             "Fade in welcome text",
             "Slide in feature cards with stagger effect",
             "Parallax scrolling effect",
@@ -18113,17 +18113,17 @@ const SlideInMenu = ({ visible }) => {
             "Scale and fade buttons on press",
             "Swipe gestures between screens",
             "Spring animations for interactive elements"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use sequence for step-by-step animations",
             "Implement stagger for list items",
             "Combine multiple animation types",
             "Pay attention to timing and easing"
-        ]
-    }
-},
-'layout-animations': {
-    content: `
+          ]
+        }
+      },
+      'layout-animations': {
+        content: `
         <div class="content-section">
             <h1>LayoutAnimation</h1>
             
@@ -18655,42 +18655,42 @@ const OptimizedComponent = () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "When should you call LayoutAnimation.configureNext()?",
             options: [
-                "After state changes",
-                "Before state changes",
-                "In useEffect",
-                "In component constructor"
+              "After state changes",
+              "Before state changes",
+              "In useEffect",
+              "In component constructor"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What's required to use LayoutAnimation on Android?",
             options: [
-                "Nothing special",
-                "Import from react-native-reanimated",
-                "Call UIManager.setLayoutAnimationEnabledExperimental(true)",
-                "Use Animated API instead"
+              "Nothing special",
+              "Import from react-native-reanimated",
+              "Call UIManager.setLayoutAnimationEnabledExperimental(true)",
+              "Use Animated API instead"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "LayoutAnimation is best for:",
             options: [
-                "Gesture animations",
-                "Continuous animations",
-                "Layout changes like adding/removing items",
-                "Complex interpolations"
+              "Gesture animations",
+              "Continuous animations",
+              "Layout changes like adding/removing items",
+              "Complex interpolations"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Expandable FAQ Section",
-        description: "Build an animated FAQ section with smooth expand/collapse animations",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Expandable FAQ Section",
+          description: "Build an animated FAQ section with smooth expand/collapse animations",
+          requirements: [
             "Accordion-style FAQ list",
             "Smooth expand/collapse animations",
             "Animated arrow indicators",
@@ -18698,17 +18698,17 @@ const OptimizedComponent = () => {
             "Add/remove FAQ items dynamically",
             "Stagger animation when loading",
             "Highlight searched terms with animation"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use LayoutAnimation for expand/collapse",
             "Implement search with animated filtering",
             "Add visual feedback for interactions",
             "Consider accessibility"
-        ]
-    }
-},
-'reanimated2': {
-    content: `
+          ]
+        }
+      },
+      'reanimated2': {
+        content: `
         <div class="content-section">
             <h1>Reanimated 2</h1>
             
@@ -19265,42 +19265,42 @@ const CustomAnimations = () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What does the 'worklet' directive do?",
             options: [
-                "Makes the function async",
-                "Runs the function on the UI thread",
-                "Optimizes memory usage",
-                "Enables debugging"
+              "Makes the function async",
+              "Runs the function on the UI thread",
+              "Optimizes memory usage",
+              "Enables debugging"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How do you create an animated value in Reanimated 2?",
             options: [
-                "new Animated.Value()",
-                "useState()",
-                "useSharedValue()",
-                "createAnimatedValue()"
+              "new Animated.Value()",
+              "useState()",
+              "useSharedValue()",
+              "createAnimatedValue()"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "Which is NOT a Reanimated 2 animation function?",
             options: [
-                "withTiming",
-                "withSpring",
-                "withAnimation",
-                "withDelay"
+              "withTiming",
+              "withSpring",
+              "withAnimation",
+              "withDelay"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Instagram Stories Clone",
-        description: "Build an Instagram Stories-like interface with Reanimated 2",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Instagram Stories Clone",
+          description: "Build an Instagram Stories-like interface with Reanimated 2",
+          requirements: [
             "Progress bar animation for story duration",
             "Swipe gestures to navigate stories",
             "Tap to pause/resume animations",
@@ -19308,17 +19308,17 @@ const CustomAnimations = () => {
             "Smooth transitions between stories",
             "Reply animation sliding up from bottom",
             "Story preview with scaling animation"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use gesture handlers for swipe detection",
             "Implement progress with withTiming",
             "Combine multiple gestures with Gesture.Simultaneous",
             "Use interpolation for smooth transitions"
-        ]
-    }
-},
-'gesture-handler': {
-    content: `
+          ]
+        }
+      },
+      'gesture-handler': {
+        content: `
         <div class="content-section">
             <h1>Gesture Animations</h1>
             
@@ -19922,42 +19922,42 @@ const PhotoViewer = ({ source }) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the main advantage of React Native Gesture Handler over PanResponder?",
             options: [
-                "Easier syntax",
-                "Better performance with native thread execution",
-                "More gesture types",
-                "Built-in animations"
+              "Easier syntax",
+              "Better performance with native thread execution",
+              "More gesture types",
+              "Built-in animations"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How do you combine multiple gestures?",
             options: [
-                "Use multiple GestureDetectors",
-                "Use Gesture.Simultaneous or Gesture.Race",
-                "Not possible",
-                "Use setState"
+              "Use multiple GestureDetectors",
+              "Use Gesture.Simultaneous or Gesture.Race",
+              "Not possible",
+              "Use setState"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What does 'worklet' mean in gesture handlers?",
             options: [
-                "It's a type of gesture",
-                "Function runs on UI thread",
-                "It's for debugging",
-                "It makes gestures faster"
+              "It's a type of gesture",
+              "Function runs on UI thread",
+              "It's for debugging",
+              "It makes gestures faster"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Photo Gallery with Gestures",
-        description: "Build a photo gallery app with advanced gesture controls",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Photo Gallery with Gestures",
+          description: "Build a photo gallery app with advanced gesture controls",
+          requirements: [
             "Swipe between photos",
             "Pinch to zoom images",
             "Double tap to zoom",
@@ -19965,17 +19965,17 @@ const PhotoViewer = ({ source }) => {
             "Long press to show options",
             "Pull down to close gallery",
             "Rotation gesture support"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use Gesture Handler for smooth performance",
             "Implement bounds checking for pan",
             "Add spring animations for natural feel",
             "Consider implementing gesture tutorials"
-        ]
-    }
-},
-'lottie': {
-    content: `
+          ]
+        }
+      },
+      'lottie': {
+        content: `
         <div class="content-section">
             <h1>Lottie Animations</h1>
             
@@ -20545,42 +20545,42 @@ const LottiePullToRefresh = ({ onRefresh, children }) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What format does Lottie use for animations?",
             options: [
-                "GIF files",
-                "MP4 videos",
-                "JSON files exported from After Effects",
-                "SVG animations"
+              "GIF files",
+              "MP4 videos",
+              "JSON files exported from After Effects",
+              "SVG animations"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "How can you control Lottie animation progress?",
             options: [
-                "Only through autoPlay",
-                "Using the progress prop or play() method",
-                "You can't control it",
-                "Only with speed prop"
+              "Only through autoPlay",
+              "Using the progress prop or play() method",
+              "You can't control it",
+              "Only with speed prop"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What's the best way to optimize Lottie performance?",
             options: [
-                "Use larger animation files",
-                "Always loop animations",
-                "Use renderMode='SOFTWARE' and pause when not visible",
-                "Disable caching"
+              "Use larger animation files",
+              "Always loop animations",
+              "Use renderMode='SOFTWARE' and pause when not visible",
+              "Disable caching"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Interactive Story App",
-        description: "Build a story app with rich Lottie animations",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Interactive Story App",
+          description: "Build a story app with rich Lottie animations",
+          requirements: [
             "Animated splash screen",
             "Interactive onboarding flow",
             "Story pages with Lottie illustrations",
@@ -20588,17 +20588,17 @@ const LottiePullToRefresh = ({ onRefresh, children }) => {
             "Loading states between pages",
             "Success/error feedback animations",
             "Pull-to-refresh with custom animation"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use LottieFiles.com for free animations",
             "Implement preloading for smooth transitions",
             "Sync animations with story narration",
             "Add interactive elements to engage users"
-        ]
-    }
-},
-'shared-element': {
-    content: `
+          ]
+        }
+      },
+      'shared-element': {
+        content: `
         <div class="content-section">
             <h1>Shared Element Transitions</h1>
             
@@ -21121,42 +21121,42 @@ const CleanupExample = () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What is required for shared element transitions to work?",
             options: [
-                "Same component type only",
-                "Matching shared element IDs between screens",
-                "Same style properties",
-                "Navigation animation"
+              "Same component type only",
+              "Matching shared element IDs between screens",
+              "Same style properties",
+              "Navigation animation"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "Which animation types are available for shared elements?",
             options: [
-                "move only",
-                "fade only",
-                "move, fade, fade-in, fade-out",
-                "scale only"
+              "move only",
+              "fade only",
+              "move, fade, fade-in, fade-out",
+              "scale only"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "How do you configure shared elements for a screen?",
             options: [
-                "In the component render",
-                "Using sharedElements static property",
-                "In navigation options",
-                "With useState"
+              "In the component render",
+              "Using sharedElements static property",
+              "In navigation options",
+              "With useState"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Photo Gallery App",
-        description: "Build a photo gallery with smooth shared element transitions",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Photo Gallery App",
+          description: "Build a photo gallery with smooth shared element transitions",
+          requirements: [
             "Grid view of photo thumbnails",
             "Shared element transition to full screen",
             "Pinch to zoom in detail view",
@@ -21164,17 +21164,17 @@ const CleanupExample = () => {
             "Hero animation for photo metadata",
             "Smooth back transition",
             "Loading states with placeholders"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use unique IDs for each photo",
             "Implement gesture handlers in detail view",
             "Preload adjacent photos",
             "Handle orientation changes"
-        ]
-    }
-},
-'animation-practices': {
-    content: `
+          ]
+        }
+      },
+      'animation-practices': {
+        content: `
         <div class="content-section">
             <h1>Animation Best Practices</h1>
             
@@ -21741,42 +21741,42 @@ const ParallaxScroll = ({ children, headerImage }) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the most important performance tip for animations?",
             options: [
-                "Use more keyframes",
-                "Always use useNativeDriver when possible",
-                "Make animations longer",
-                "Use setState for all animations"
+              "Use more keyframes",
+              "Always use useNativeDriver when possible",
+              "Make animations longer",
+              "Use setState for all animations"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How should you handle reduced motion preferences?",
             options: [
-                "Ignore them",
-                "Disable all animations",
-                "Provide simpler alternative animations",
-                "Show a warning"
+              "Ignore them",
+              "Disable all animations",
+              "Provide simpler alternative animations",
+              "Show a warning"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What's the recommended duration for standard animations?",
             options: [
-                "100ms",
-                "300ms",
-                "1000ms",
-                "2000ms"
+              "100ms",
+              "300ms",
+              "1000ms",
+              "2000ms"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Animated Dashboard",
-        description: "Build a data dashboard with performant, accessible animations",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Animated Dashboard",
+          description: "Build a data dashboard with performant, accessible animations",
+          requirements: [
             "Animated charts and graphs",
             "Skeleton loading states",
             "Gesture-controlled data exploration",
@@ -21785,17 +21785,17 @@ const ParallaxScroll = ({ children, headerImage }) => {
             "Error and success animations",
             "Performance monitoring",
             "Staggered list animations"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use Reanimated 2 for complex animations",
             "Implement proper loading states",
             "Test with accessibility settings enabled",
             "Monitor frame rates during animations"
-        ]
-    }
-},
-'fetch-api': {
-    content: `
+          ]
+        }
+      },
+      'fetch-api': {
+        content: `
         <div class="content-section">
             <h1>API Integration</h1>
             
@@ -22456,42 +22456,42 @@ class ErrorHandler {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the main advantage of using React Query?",
             options: [
-                "Faster API calls",
-                "Automatic caching and background refetching",
-                "Better security",
-                "Smaller bundle size"
+              "Faster API calls",
+              "Automatic caching and background refetching",
+              "Better security",
+              "Smaller bundle size"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "When should you use WebSockets instead of REST?",
             options: [
-                "For all API calls",
-                "Only for authentication",
-                "For real-time bidirectional communication",
-                "Never"
+              "For all API calls",
+              "Only for authentication",
+              "For real-time bidirectional communication",
+              "Never"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What does an axios interceptor do?",
             options: [
-                "Blocks API calls",
-                "Intercepts and modifies requests/responses",
-                "Speeds up requests",
-                "Handles WebSocket connections"
+              "Blocks API calls",
+              "Intercepts and modifies requests/responses",
+              "Speeds up requests",
+              "Handles WebSocket connections"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Real-time Chat Application",
-        description: "Build a chat app with REST API for messages and WebSocket for real-time updates",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Real-time Chat Application",
+          description: "Build a chat app with REST API for messages and WebSocket for real-time updates",
+          requirements: [
             "User authentication with JWT",
             "Fetch chat history with pagination",
             "Real-time message updates via WebSocket",
@@ -22500,17 +22500,17 @@ class ErrorHandler {
             "Push notifications for new messages",
             "Error handling and retry logic",
             "Message status indicators"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use React Query for message history",
             "Implement WebSocket reconnection logic",
             "Cache messages locally",
             "Handle network state changes"
-        ]
-    }
-},
-'async-storage': {
-    content: `
+          ]
+        }
+      },
+      'async-storage': {
+        content: `
         <div class="content-section">
             <h1>AsyncStorage & MMKV</h1>
             
@@ -23175,42 +23175,42 @@ class StorageSync {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the main advantage of MMKV over AsyncStorage?",
             options: [
-                "Better API design",
-                "Much faster read/write performance",
-                "Smaller storage size",
-                "Cross-platform compatibility"
+              "Better API design",
+              "Much faster read/write performance",
+              "Smaller storage size",
+              "Cross-platform compatibility"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "How should you store sensitive data locally?",
             options: [
-                "Plain text in AsyncStorage",
-                "In app memory only",
-                "Using MMKV with encryption",
-                "Don't store sensitive data"
+              "Plain text in AsyncStorage",
+              "In app memory only",
+              "Using MMKV with encryption",
+              "Don't store sensitive data"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What's the best practice for cache expiration?",
             options: [
-                "Never expire cache",
-                "Clear all cache daily",
-                "Store timestamp and check on retrieval",
-                "Use device storage limits"
+              "Never expire cache",
+              "Clear all cache daily",
+              "Store timestamp and check on retrieval",
+              "Use device storage limits"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Offline-First Note Taking App",
-        description: "Build a note-taking app with robust offline storage and sync",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Offline-First Note Taking App",
+          description: "Build a note-taking app with robust offline storage and sync",
+          requirements: [
             "Store notes locally with MMKV",
             "Implement search in local notes",
             "Sync with cloud when online",
@@ -23219,17 +23219,17 @@ class StorageSync {
             "Export/import functionality",
             "Storage usage statistics",
             "Data migration from AsyncStorage"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use MMKV for performance",
             "Implement queue for offline changes",
             "Use timestamps for conflict resolution",
             "Show sync status to users"
-        ]
-    }
-},
-'database-solutions': {
-    content: `
+          ]
+        }
+      },
+      'database-solutions': {
+        content: `
         <div class="content-section">
             <h1>Database Solutions</h1>
             
@@ -23887,42 +23887,42 @@ const runMigrations = async (db) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "Which database is best for large-scale React Native apps?",
             options: [
-                "AsyncStorage",
-                "SQLite",
-                "WatermelonDB",
-                "JSON files"
+              "AsyncStorage",
+              "SQLite",
+              "WatermelonDB",
+              "JSON files"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What's the main advantage of Realm?",
             options: [
-                "Smallest bundle size",
-                "SQL support",
-                "Automatic sync and reactive queries",
-                "Fastest performance"
+              "Smallest bundle size",
+              "SQL support",
+              "Automatic sync and reactive queries",
+              "Fastest performance"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "When should you use database transactions?",
             options: [
-                "For single insert operations",
-                "For related operations that should succeed or fail together",
-                "Only for delete operations",
-                "Never"
+              "For single insert operations",
+              "For related operations that should succeed or fail together",
+              "Only for delete operations",
+              "Never"
             ],
             correct: 1
-        }
-    ],
-    project: {
-        title: "Task Management App with Sync",
-        description: "Build a task management app with offline database and cloud sync",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Task Management App with Sync",
+          description: "Build a task management app with offline database and cloud sync",
+          requirements: [
             "User authentication system",
             "Tasks with categories and tags",
             "Offline task creation/editing",
@@ -23931,17 +23931,17 @@ const runMigrations = async (db) => {
             "Data export functionality",
             "Handle sync conflicts",
             "Performance monitoring"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use WatermelonDB for performance",
             "Implement queue for offline changes",
             "Use timestamps for conflict resolution",
             "Show sync status to users"
-        ]
-    }
-},
-'state-management-libraries': {
-    content: `
+          ]
+        }
+      },
+      'state-management-libraries': {
+        content: `
         <div class="content-section">
             <h1>State Management Libraries</h1>
             
@@ -24609,42 +24609,42 @@ export const stateMonitor = new StateMonitor();</code></pre>
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the advantage of RTK Query over regular Redux?",
             options: [
-                "Smaller bundle size",
-                "Built-in caching and data fetching",
-                "Better TypeScript support",
-                "Faster performance"
+              "Smaller bundle size",
+              "Built-in caching and data fetching",
+              "Better TypeScript support",
+              "Faster performance"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "When should you use optimistic updates?",
             options: [
-                "For all mutations",
-                "Only for deletions",
-                "For actions with predictable outcomes and good UX",
-                "Never"
+              "For all mutations",
+              "Only for deletions",
+              "For actions with predictable outcomes and good UX",
+              "Never"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "What's the best approach for offline-first apps?",
             options: [
-                "Always fetch from network",
-                "Cache everything forever",
-                "Try network first, fall back to cache",
-                "Only use local storage"
+              "Always fetch from network",
+              "Cache everything forever",
+              "Try network first, fall back to cache",
+              "Only use local storage"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Offline-First Social App",
-        description: "Build a social app with robust offline support and state management",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Offline-First Social App",
+          description: "Build a social app with robust offline support and state management",
+          requirements: [
             "User authentication with token refresh",
             "Posts with offline creation",
             "Real-time comments with WebSocket",
@@ -24653,17 +24653,17 @@ export const stateMonitor = new StateMonitor();</code></pre>
             "Conflict resolution for edits",
             "State persistence across sessions",
             "Performance monitoring dashboard"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use RTK Query for API management",
             "Implement queue for offline actions",
             "Show sync status to users",
             "Handle auth token expiry gracefully"
-        ]
-    }
-},
-'file-system-and-media': {
-    content: `
+          ]
+        }
+      },
+      'file-system-and-media': {
+        content: `
         <div class="content-section">
             <h1>File System & Media</h1>
             
@@ -25294,42 +25294,42 @@ const getFileType = (filename) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "Which directory should you use for temporary files?",
             options: [
-                "DocumentDirectoryPath",
-                "CachesDirectoryPath",
-                "ExternalDirectoryPath",
-                "MainBundlePath"
+              "DocumentDirectoryPath",
+              "CachesDirectoryPath",
+              "ExternalDirectoryPath",
+              "MainBundlePath"
             ],
             correct: 1
-        },
-        {
+          },
+          {
             question: "What's the best way to handle large file uploads?",
             options: [
-                "Upload the entire file at once",
-                "Use base64 encoding",
-                "Use XMLHttpRequest with progress tracking",
-                "Avoid large file uploads"
+              "Upload the entire file at once",
+              "Use base64 encoding",
+              "Use XMLHttpRequest with progress tracking",
+              "Avoid large file uploads"
             ],
             correct: 2
-        },
-        {
+          },
+          {
             question: "When should you resize images?",
             options: [
-                "Never",
-                "Only for thumbnails",
-                "Before uploading to reduce bandwidth",
-                "After downloading"
+              "Never",
+              "Only for thumbnails",
+              "Before uploading to reduce bandwidth",
+              "After downloading"
             ],
             correct: 2
-        }
-    ],
-    project: {
-        title: "Cloud Storage App",
-        description: "Build a file management app with cloud storage integration",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Cloud Storage App",
+          description: "Build a file management app with cloud storage integration",
+          requirements: [
             "File browser with folder navigation",
             "Upload files with progress tracking",
             "Download files for offline access",
@@ -25338,17 +25338,17 @@ const getFileType = (filename) => {
             "File sharing functionality",
             "Storage usage statistics",
             "Automatic cache management"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use react-native-fs for file operations",
             "Implement chunked uploads for large files",
             "Cache thumbnails for performance",
             "Show file type icons"
-        ]
-    }
-},
-'sqlite': {
-    content: `
+          ]
+        }
+      },
+      'sqlite': {
+        content: `
         <div class="content-section">
             <h1>SQLite Database</h1>
             
@@ -25920,45 +25920,45 @@ const optimizeUserPostsQuery = async (db) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the maximum size of a SQLite database in React Native?",
             options: [
-                "2GB",
-                "4GB",
-                "Limited by device storage",
-                "100MB"
+              "2GB",
+              "4GB",
+              "Limited by device storage",
+              "100MB"
             ],
             correct: 2,
             explanation: "SQLite databases can grow as large as device storage allows, with a theoretical limit of 281TB."
-        },
-        {
+          },
+          {
             question: "Which is the correct way to prevent SQL injection?",
             options: [
-                "String concatenation",
-                "Template literals",
-                "Parameterized queries with ?",
-                "Escaping special characters"
+              "String concatenation",
+              "Template literals",
+              "Parameterized queries with ?",
+              "Escaping special characters"
             ],
             correct: 2,
             explanation: "Parameterized queries with placeholders (?) are the safest way to prevent SQL injection attacks."
-        },
-        {
+          },
+          {
             question: "What happens when you DELETE a user with CASCADE?",
             options: [
-                "Only the user is deleted",
-                "Related posts are also deleted",
-                "An error is thrown",
-                "Posts are set to NULL"
+              "Only the user is deleted",
+              "Related posts are also deleted",
+              "An error is thrown",
+              "Posts are set to NULL"
             ],
             correct: 1,
             explanation: "CASCADE delete removes the user and all related records that have foreign key constraints."
-        }
-    ],
-    project: {
-        title: "Note-Taking App with SQLite",
-        description: "Build a comprehensive note-taking app with categories, tags, full-text search, and relationships",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Note-Taking App with SQLite",
+          description: "Build a comprehensive note-taking app with categories, tags, full-text search, and relationships",
+          requirements: [
             "Create database schema for notes, categories, and tags",
             "Implement CRUD operations for all entities",
             "Add full-text search with FTS5",
@@ -25967,18 +25967,18 @@ const optimizeUserPostsQuery = async (db) => {
             "Add database backup and restore features",
             "Sync notes across devices",
             "Version history for notes"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use FTS5 extension for full-text search",
             "Implement database migrations for updates",
             "Use transactions for bulk operations",
             "Index frequently queried columns",
             "Consider using prepared statements"
-        ]
-    }
-},
-'realm': {
-    content: `
+          ]
+        }
+      },
+      'realm': {
+        content: `
         <div class="content-section">
             <h1>Realm Database</h1>
             
@@ -26632,46 +26632,46 @@ const asyncRealmOperations = async () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What makes Realm different from SQLite?",
             options: [
-                "It uses SQL queries",
-                "It's object-oriented and reactive",
-                "It's smaller in size",
-                "It doesn't support relationships"
+              "It uses SQL queries",
+              "It's object-oriented and reactive",
+              "It's smaller in size",
+              "It doesn't support relationships"
             ],
             correct: 1,
             explanation: "Realm uses an object-oriented API with reactive queries, unlike SQLite's SQL-based approach."
-        },
-        {
+          },
+          {
             question: "How do you define a one-to-many relationship in Realm?",
             options: [
-                "Using foreign keys",
-                "Using linkingObjects",
-                "Using JOIN queries",
-                "It's not supported"
+              "Using foreign keys",
+              "Using linkingObjects",
+              "Using JOIN queries",
+              "It's not supported"
             ],
             correct: 1,
             explanation: "Realm uses linkingObjects to define inverse relationships for one-to-many connections."
-        },
-        {
+          },
+          {
             question: "What's the purpose of realm.write()?",
             options: [
-                "To read data",
-                "To create a transaction for modifications",
-                "To sync with server",
-                "To optimize queries"
+              "To read data",
+              "To create a transaction for modifications",
+              "To sync with server",
+              "To optimize queries"
             ],
             correct: 1,
             explanation: "realm.write() creates a transaction where all data modifications must occur to ensure consistency."
-        }
-    ],
-    project: {
+          }
+        ],
+        project: {
 
-        title: "Task Management App with Realm",
-        description: "Build a real-time task management app with projects, tasks, subtasks, and team collaboration",
-        requirements: [
+          title: "Task Management App with Realm",
+          description: "Build a real-time task management app with projects, tasks, subtasks, and team collaboration",
+          requirements: [
             "Design schemas for projects, tasks, and subtasks with relationships",
             "Implement real-time sync with Realm Sync",
             "Add offline support with conflict resolution",
@@ -26680,18 +26680,18 @@ const asyncRealmOperations = async () => {
             "Add data migration for schema updates",
             "User authentication and permissions",
             "Task assignment and notifications"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use linkingObjects for inverse relationships",
             "Implement optimistic UI with local writes",
             "Handle sync conflicts gracefully",
             "Use Realm notifications for real-time updates",
             "Partition data by team or project"
-        ]
-    }
-},
-'firebase': {
-    content: `
+          ]
+        }
+      },
+      'firebase': {
+        content: `
         <div class="content-section">
             <h1>Firebase Integration</h1>
             
@@ -27620,45 +27620,45 @@ export const navigationTracking = (navigationRef) => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the difference between Firestore and Realtime Database?",
             options: [
-                "No difference",
-                "Firestore is document-based, Realtime is JSON tree",
-                "Realtime is newer",
-                "Firestore doesn't support offline"
+              "No difference",
+              "Firestore is document-based, Realtime is JSON tree",
+              "Realtime is newer",
+              "Firestore doesn't support offline"
             ],
             correct: 1,
             explanation: "Firestore uses a document-collection model while Realtime Database stores data as a large JSON tree."
-        },
-        {
+          },
+          {
             question: "How do you handle offline data in Firestore?",
             options: [
-                "It's not supported",
-                "Enable persistence with firestore().settings()",
-                "Use AsyncStorage",
-                "It's enabled by default"
+              "It's not supported",
+              "Enable persistence with firestore().settings()",
+              "Use AsyncStorage",
+              "It's enabled by default"
             ],
             correct: 3,
             explanation: "Firestore offline persistence is enabled by default in React Native, automatically caching data for offline use."
-        },
-        {
+          },
+          {
             question: "What's required for push notifications on iOS?",
             options: [
-                "Nothing special",
-                "APNs certificates and capabilities",
-                "Only Firebase config",
-                "Just request permission"
+              "Nothing special",
+              "APNs certificates and capabilities",
+              "Only Firebase config",
+              "Just request permission"
             ],
             correct: 1,
             explanation: "iOS requires Apple Push Notification service (APNs) certificates and enabling push notification capabilities in Xcode."
-        }
-    ],
-    project: {
-        title: "Social Media App with Firebase",
-        description: "Build a full-featured social media app with real-time feeds, messaging, and media sharing",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Social Media App with Firebase",
+          description: "Build a full-featured social media app with real-time feeds, messaging, and media sharing",
+          requirements: [
             "User authentication with multiple providers",
             "Real-time feed with Firestore",
             "Direct messaging with Realtime Database",
@@ -27667,19 +27667,19 @@ export const navigationTracking = (navigationRef) => {
             "User profiles and following system",
             "Content moderation with Cloud Functions",
             "Analytics tracking for engagement"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use Firestore for structured data",
             "Implement pagination for feeds",
             "Compress images before upload",
             "Cache user data locally",
             "Use security rules to protect data",
             "Implement presence system for online status"
-        ]
-    }
-},
-'graphql': {
-    content: `
+          ]
+        }
+      },
+      'graphql': {
+        content: `
         <div class="content-section">
             <h1>GraphQL with Apollo</h1>
             
@@ -28593,45 +28593,45 @@ describe('UserProfile', () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the main advantage of GraphQL over REST?",
             options: [
-                "It's faster",
-                "Request exactly what you need",
-                "Better security",
-                "Simpler to implement"
+              "It's faster",
+              "Request exactly what you need",
+              "Better security",
+              "Simpler to implement"
             ],
             correct: 1,
             explanation: "GraphQL allows clients to request exactly the data they need, avoiding over-fetching or under-fetching."
-        },
-        {
+          },
+          {
             question: "What does Apollo Client's cache do?",
             options: [
-                "Stores queries as strings",
-                "Normalizes and stores data",
-                "Only caches images",
-                "Requires manual management"
+              "Stores queries as strings",
+              "Normalizes and stores data",
+              "Only caches images",
+              "Requires manual management"
             ],
             correct: 1,
             explanation: "Apollo Client normalizes and caches query results, automatically updating the UI when cached data changes."
-        },
-        {
+          },
+          {
             question: "When should you use subscriptions?",
             options: [
-                "For all queries",
-                "For real-time updates",
-                "Only for mutations",
-                "Never in mobile apps"
+              "For all queries",
+              "For real-time updates",
+              "Only for mutations",
+              "Never in mobile apps"
             ],
             correct: 1,
             explanation: "GraphQL subscriptions are ideal for real-time updates like chat messages, live data, or status changes."
-        }
-    ],
-    project: {
-        title: "Real-time Collaboration App with GraphQL",
-        description: "Build a collaborative workspace app with real-time updates, document editing, and team chat",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Real-time Collaboration App with GraphQL",
+          description: "Build a collaborative workspace app with real-time updates, document editing, and team chat",
+          requirements: [
             "User authentication with JWT tokens",
             "Real-time document collaboration",
             "Team chat with typing indicators",
@@ -28640,19 +28640,19 @@ describe('UserProfile', () => {
             "Offline support with cache persistence",
             "Optimistic UI for all mutations",
             "Search across documents and messages"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use subscriptions for real-time features",
             "Implement proper cache normalization",
             "Handle connection state changes",
             "Use fragments to avoid duplication",
             "Batch queries when possible",
             "Implement cursor-based pagination"
-        ]
-    }
-},
-'offline-sync': {
-    content: `
+          ]
+        }
+      },
+      'offline-sync': {
+        content: `
         <div class="content-section">
             <h1>Offline Data Sync</h1>
             
@@ -29541,45 +29541,45 @@ class DataConsistencyManager {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the best conflict resolution strategy for collaborative apps?",
             options: [
-                "Always use server wins",
-                "Always use client wins",
-                "Timestamp-based with manual option",
-                "Random selection"
+              "Always use server wins",
+              "Always use client wins",
+              "Timestamp-based with manual option",
+              "Random selection"
             ],
             correct: 2,
             explanation: "Timestamp-based resolution with manual option provides automatic resolution for most cases while allowing users to intervene when needed."
-        },
-        {
+          },
+          {
             question: "When should you perform background sync?",
             options: [
-                "Every minute",
-                "Only when app is active",
-                "Based on network and battery conditions",
-                "Never"
+              "Every minute",
+              "Only when app is active",
+              "Based on network and battery conditions",
+              "Never"
             ],
             correct: 2,
             explanation: "Background sync should consider network availability, battery level, and user preferences to optimize resource usage."
-        },
-        {
+          },
+          {
             question: "How do you handle sync failures?",
             options: [
-                "Ignore them",
-                "Retry immediately",
-                "Exponential backoff with max retries",
-                "Delete the data"
+              "Ignore them",
+              "Retry immediately",
+              "Exponential backoff with max retries",
+              "Delete the data"
             ],
             correct: 2,
             explanation: "Exponential backoff prevents overwhelming the server while giving temporary issues time to resolve."
-        }
-    ],
-    project: {
-        title: "Offline-First Expense Tracker",
-        description: "Build a fully functional expense tracking app that works seamlessly offline and syncs across devices",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Offline-First Expense Tracker",
+          description: "Build a fully functional expense tracking app that works seamlessly offline and syncs across devices",
+          requirements: [
             "Complete offline functionality for all features",
             "Background sync with smart scheduling",
             "Conflict resolution for shared accounts",
@@ -29588,20 +29588,20 @@ class DataConsistencyManager {
             "Manual sync trigger option",
             "Sync history and logs",
             "Handle authentication token refresh"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use SQLite for local storage",
             "Implement queue for offline operations",
             "Show sync status in UI",
             "Compress images before sync",
             "Use delta sync for efficiency",
             "Test with airplane mode"
-        ]
-    }
-},
+          ]
+        }
+      },
 
-'debugging-tools': {
-    content: `
+      'debugging-tools': {
+        content: `
         <div class="content-section">
             <h1>Debugging Tools</h1>
             
@@ -30314,45 +30314,45 @@ export const debugManager = new DebugManager(DebugConfig);</code></pre>
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the keyboard shortcut to open debug menu on iOS?",
             options: [
-                "Cmd + R",
-                "Cmd + D",
-                "Cmd + M",
-                "Cmd + I"
+              "Cmd + R",
+              "Cmd + D",
+              "Cmd + M",
+              "Cmd + I"
             ],
             correct: 1,
             explanation: "Cmd + D opens the debug menu on iOS simulator, while Cmd + M is used for Android."
-        },
-        {
+          },
+          {
             question: "Which tool is best for inspecting React component hierarchy?",
             options: [
-                "Chrome DevTools",
-                "React DevTools",
-                "Safari Web Inspector",
-                "Android Studio"
+              "Chrome DevTools",
+              "React DevTools",
+              "Safari Web Inspector",
+              "Android Studio"
             ],
             correct: 1,
             explanation: "React DevTools is specifically designed for inspecting React component trees and props."
-        },
-        {
+          },
+          {
             question: "What does __DEV__ indicate in React Native?",
             options: [
-                "Development server is running",
-                "Debug mode is enabled",
-                "App is in development mode",
-                "DevTools are connected"
+              "Development server is running",
+              "Debug mode is enabled",
+              "App is in development mode",
+              "DevTools are connected"
             ],
             correct: 2,
             explanation: "__DEV__ is a global variable that's true when the app is running in development mode."
-        }
-    ],
-    project: {
-        title: "Debug Dashboard App",
-        description: "Build a debug dashboard that displays real-time app metrics, network requests, and error logs",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Debug Dashboard App",
+          description: "Build a debug dashboard that displays real-time app metrics, network requests, and error logs",
+          requirements: [
             "Show FPS and memory usage",
             "Log and display network requests",
             "Capture and show console logs",
@@ -30361,18 +30361,18 @@ export const debugManager = new DebugManager(DebugConfig);</code></pre>
             "Export debug logs feature",
             "Filter logs by type/level",
             "Clear debug data option"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use react-native-performance for metrics",
             "Intercept fetch/XMLHttpRequest",
             "Store logs in AsyncStorage",
             "Create custom error boundary",
             "Use charts for visualization"
-        ]
-    }
-},
-'flipper': {
-    content: `
+          ]
+        }
+      },
+      'flipper': {
+        content: `
         <div class="content-section">
             <h1>Flipper</h1>
             
@@ -30949,45 +30949,45 @@ export const crashReporter = new FlipperCrashReporter();</code></pre>
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What is Flipper primarily used for?",
             options: [
-                "Code compilation",
-                "Debugging mobile apps",
-                "Testing automation",
-                "Performance optimization"
+              "Code compilation",
+              "Debugging mobile apps",
+              "Testing automation",
+              "Performance optimization"
             ],
             correct: 1,
             explanation: "Flipper is a platform for debugging mobile apps with tools for network inspection, database viewing, and more."
-        },
-        {
+          },
+          {
             question: "Which React Native version includes Flipper by default?",
             options: [
-                "0.59",
-                "0.60",
-                "0.62",
-                "0.64"
+              "0.59",
+              "0.60",
+              "0.62",
+              "0.64"
             ],
             correct: 2,
             explanation: "React Native 0.62 and later versions include Flipper integration by default."
-        },
-        {
+          },
+          {
             question: "What can you inspect with Flipper's Layout plugin?",
             options: [
-                "Network requests",
-                "Component hierarchy and styles",
-                "Database contents",
-                "Console logs"
+              "Network requests",
+              "Component hierarchy and styles",
+              "Database contents",
+              "Console logs"
             ],
             correct: 1,
             explanation: "The Layout plugin allows you to inspect the component hierarchy, view styles, and modify properties in real-time."
-        }
-    ],
-    project: {
-        title: "Custom Flipper Plugin Suite",
-        description: "Build a comprehensive set of custom Flipper plugins for advanced app debugging",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Custom Flipper Plugin Suite",
+          description: "Build a comprehensive set of custom Flipper plugins for advanced app debugging",
+          requirements: [
             "User session tracker plugin",
             "API performance monitor",
             "State change visualizer",
@@ -30996,18 +30996,18 @@ export const crashReporter = new FlipperCrashReporter();</code></pre>
             "Navigation flow analyzer",
             "Error aggregation plugin",
             "Feature flag manager"
-        ],
-        hints: [
+          ],
+          hints: [
             "Extend FlipperPlugin class",
             "Use connection.send() for updates",
             "Implement desktop UI in TypeScript",
             "Store plugin state persistently",
             "Add export functionality"
-        ]
-    }
-},
+          ]
+        }
+      },
       'jest-setup': {
-    content: `
+        content: `
         <div class="content-section">
             <h1>Jest Setup</h1>
             
@@ -31665,45 +31665,45 @@ npm test -- --testNamePattern="should render"</code></pre>
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What is the purpose of setupFiles in Jest config?",
             options: [
-                "To run tests",
-                "To initialize test environment",
-                "To generate reports",
-                "To update snapshots"
+              "To run tests",
+              "To initialize test environment",
+              "To generate reports",
+              "To update snapshots"
             ],
             correct: 1,
             explanation: "setupFiles runs before the test framework is installed in the environment, perfect for setting up global mocks."
-        },
-        {
+          },
+          {
             question: "Which method is used to test asynchronous hooks?",
             options: [
-                "waitFor",
-                "waitForElement",
-                "waitForNextUpdate",
-                "waitForAsync"
+              "waitFor",
+              "waitForElement",
+              "waitForNextUpdate",
+              "waitForAsync"
             ],
             correct: 2,
             explanation: "waitForNextUpdate waits for the next update of a hook when testing asynchronous behavior."
-        },
-        {
+          },
+          {
             question: "What does coverage threshold configuration do?",
             options: [
-                "Limits test execution time",
-                "Sets minimum coverage requirements",
-                "Configures test timeout",
-                "Defines test patterns"
+              "Limits test execution time",
+              "Sets minimum coverage requirements",
+              "Configures test timeout",
+              "Defines test patterns"
             ],
             correct: 1,
             explanation: "Coverage thresholds ensure your code maintains a minimum level of test coverage by failing tests if thresholds aren't met."
-        }
-    ],
-    project: {
-        title: "Testing Framework Setup",
-        description: "Create a complete testing setup for a React Native app with Jest, including unit tests, integration tests, and coverage reports",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Testing Framework Setup",
+          description: "Create a complete testing setup for a React Native app with Jest, including unit tests, integration tests, and coverage reports",
+          requirements: [
             "Configure Jest for React Native and TypeScript",
             "Set up testing utilities and custom matchers",
             "Write component tests with snapshots",
@@ -31712,18 +31712,18 @@ npm test -- --testNamePattern="should render"</code></pre>
             "Configure coverage thresholds",
             "Create test helpers for common scenarios",
             "Set up CI/CD test pipeline"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use @testing-library/react-native",
             "Create reusable test utilities",
             "Mock navigation and native modules",
             "Use MSW for API mocking",
             "Generate coverage badges"
-        ]
-    }
-},
-'testing-library': {
-    content: `
+          ]
+        }
+      },
+      'testing-library': {
+        content: `
         <div class="content-section">
             <h1>React Native Testing Library</h1>
             
@@ -32309,45 +32309,45 @@ describe('Todo App Integration', () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the difference between getBy and queryBy queries?",
             options: [
-                "No difference",
-                "getBy throws if not found, queryBy returns null",
-                "queryBy is faster",
-                "getBy is async"
+              "No difference",
+              "getBy throws if not found, queryBy returns null",
+              "queryBy is faster",
+              "getBy is async"
             ],
             correct: 1,
             explanation: "getBy queries throw an error if element is not found, while queryBy returns null, making it useful for asserting non-existence."
-        },
-        {
+          },
+          {
             question: "Which query should you use for elements that appear after async operations?",
             options: [
-                "getBy",
-                "queryBy",
-                "findBy",
-                "searchBy"
+              "getBy",
+              "queryBy",
+              "findBy",
+              "searchBy"
             ],
             correct: 2,
             explanation: "findBy queries return a promise and wait for the element to appear, perfect for testing async behavior."
-        },
-        {
+          },
+          {
             question: "What's the recommended order for querying elements?",
             options: [
-                "testID, text, role",
-                "role, label, text, testID",
-                "text, testID, role",
-                "It doesn't matter"
+              "testID, text, role",
+              "role, label, text, testID",
+              "text, testID, role",
+              "It doesn't matter"
             ],
             correct: 1,
             explanation: "Prefer accessible queries (role, label) first, then text, and use testID as a last resort."
-        }
-    ],
-    project: {
-        title: "E-commerce App Test Suite",
-        description: "Build a comprehensive test suite for an e-commerce app using React Native Testing Library",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "E-commerce App Test Suite",
+          description: "Build a comprehensive test suite for an e-commerce app using React Native Testing Library",
+          requirements: [
             "Test product listing and search",
             "Test add to cart functionality",
             "Test checkout flow",
@@ -32356,18 +32356,18 @@ describe('Todo App Integration', () => {
             "Test order history",
             "Mock API responses",
             "Test error scenarios"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use MSW for API mocking",
             "Create custom render with providers",
             "Test from user perspective",
             "Use findBy for async elements",
             "Test accessibility"
-        ]
-    }
-},
-'detox': {
-    content: `
+          ]
+        }
+      },
+      'detox': {
+        content: `
         <div class="content-section">
             <h1>E2E Testing with Detox</h1>
             
@@ -33003,45 +33003,45 @@ const waitForDebugger = async () => {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What type of testing framework is Detox?",
             options: [
-                "White-box testing",
-                "Black-box testing",
-                "Gray-box testing",
-                "Unit testing"
+              "White-box testing",
+              "Black-box testing",
+              "Gray-box testing",
+              "Unit testing"
             ],
             correct: 2,
             explanation: "Detox is a gray-box testing framework, meaning it has some knowledge of the app's internals while testing from a user perspective."
-        },
-        {
+          },
+          {
             question: "Which method waits for an element to appear?",
             options: [
-                "expect(element()).toExist()",
-                "waitFor(element()).toBeVisible()",
-                "element().wait()",
-                "delay(element())"
+              "expect(element()).toExist()",
+              "waitFor(element()).toBeVisible()",
+              "element().wait()",
+              "delay(element())"
             ],
             correct: 1,
             explanation: "waitFor(element()).toBeVisible() waits for an element to appear with optional timeout configuration."
-        },
-        {
+          },
+          {
             question: "How do you handle platform-specific code in Detox tests?",
             options: [
-                "Write separate test files",
-                "Use device.getPlatform() conditionals",
-                "Detox handles it automatically",
-                "Platform differences aren't supported"
+              "Write separate test files",
+              "Use device.getPlatform() conditionals",
+              "Detox handles it automatically",
+              "Platform differences aren't supported"
             ],
             correct: 1,
             explanation: "Use device.getPlatform() to check the platform and write conditional logic for platform-specific interactions."
-        }
-    ],
-    project: {
-        title: "Complete E2E Test Suite",
-        description: "Build a comprehensive E2E test suite for a social media app using Detox",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Complete E2E Test Suite",
+          description: "Build a comprehensive E2E test suite for a social media app using Detox",
+          requirements: [
             "Test user registration and login flows",
             "Test posting and interacting with content",
             "Test real-time messaging",
@@ -33050,18 +33050,18 @@ const waitForDebugger = async () => {
             "Test deep linking scenarios",
             "Handle permissions testing",
             "Set up CI/CD integration"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use page object pattern",
             "Create reusable test helpers",
             "Mock backend responses",
             "Test on both platforms",
             "Record videos on failures"
-        ]
-    }
-},
-'performance': {
-    content: `
+          ]
+        }
+      },
+      'performance': {
+        content: `
         <div class="content-section">
             <h1>Performance Optimization</h1>
             
@@ -33821,45 +33821,45 @@ npx react-native bundle \\
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the target frame rate for smooth animations?",
             options: [
-                "30 FPS",
-                "45 FPS",
-                "60 FPS",
-                "120 FPS"
+              "30 FPS",
+              "45 FPS",
+              "60 FPS",
+              "120 FPS"
             ],
             correct: 2,
             explanation: "60 FPS (frames per second) is the target for smooth animations, meaning each frame should render in under 16.67ms."
-        },
-        {
+          },
+          {
             question: "Which prop enables native driver for animations?",
             options: [
-                "nativeDriver: true",
-                "useNativeDriver: true",
-                "enableNative: true",
-                "native: true"
+              "nativeDriver: true",
+              "useNativeDriver: true",
+              "enableNative: true",
+              "native: true"
             ],
             correct: 1,
             explanation: "useNativeDriver: true runs animations on the UI thread instead of the JavaScript thread for better performance."
-        },
-        {
+          },
+          {
             question: "What's the purpose of getItemLayout in FlatList?",
             options: [
-                "Styling items",
-                "Filtering data",
-                "Skip measurement for better performance",
-                "Sorting items"
+              "Styling items",
+              "Filtering data",
+              "Skip measurement for better performance",
+              "Sorting items"
             ],
             correct: 2,
             explanation: "getItemLayout allows FlatList to skip the measurement phase by providing item dimensions upfront, significantly improving performance."
-        }
-    ],
-    project: {
-        title: "Performance-Optimized News Feed",
-        description: "Build a high-performance news feed app with complex UI and real-time updates",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Performance-Optimized News Feed",
+          description: "Build a high-performance news feed app with complex UI and real-time updates",
+          requirements: [
             "Implement virtualized list with 1000+ items",
             "Lazy load images with placeholders",
             "Add pull-to-refresh with optimistic updates",
@@ -33868,18 +33868,18 @@ npx react-native bundle \\
             "Optimize bundle size under 5MB",
             "Achieve 60 FPS scrolling",
             "Handle memory efficiently"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use FlatList with optimization props",
             "Implement image caching strategy",
             "Use React.memo for list items",
             "Monitor with Flipper",
             "Profile with React DevTools"
-        ]
-    }
-},
-'app-icons': {
-    content: `
+          ]
+        }
+      },
+      'app-icons': {
+        content: `
         <div class="content-section">
             <h1>App Icons & Splash Screens</h1>
             
@@ -34383,45 +34383,45 @@ generateIcons('./design/app-icon.png')
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the required size for App Store icon?",
             options: [
-                "512x512",
-                "1024x1024",
-                "2048x2048",
-                "256x256"
+              "512x512",
+              "1024x1024",
+              "2048x2048",
+              "256x256"
             ],
             correct: 1,
             explanation: "App Store requires a 1024x1024 pixel icon for the store listing."
-        },
-        {
+          },
+          {
             question: "What should iOS icons NOT have?",
             options: [
-                "Rounded corners",
-                "Transparency",
-                "Colors",
-                "Shadows"
+              "Rounded corners",
+              "Transparency",
+              "Colors",
+              "Shadows"
             ],
             correct: 1,
             explanation: "iOS icons should not have transparency; the system applies rounded corners automatically."
-        },
-        {
+          },
+          {
             question: "What percentage is the safe zone in Android adaptive icons?",
             options: [
-                "50%",
-                "66%",
-                "75%",
-                "80%"
+              "50%",
+              "66%",
+              "75%",
+              "80%"
             ],
             correct: 1,
             explanation: "Android adaptive icons have a 66% safe zone where important content should be placed."
-        }
-    ],
-    project: {
-        title: "Professional App Branding",
-        description: "Create a complete branding package with icons and splash screens for a fitness tracking app",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Professional App Branding",
+          description: "Create a complete branding package with icons and splash screens for a fitness tracking app",
+          requirements: [
             "Design unique app icon following guidelines",
             "Generate all iOS icon sizes",
             "Create Android adaptive icon layers",
@@ -34430,18 +34430,18 @@ generateIcons('./design/app-icon.png')
             "Support dark mode variants",
             "Create promotional graphics",
             "Automate asset generation"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use vector graphics as source",
             "Test on real devices",
             "Consider seasonal icon variants",
             "Keep file sizes optimized",
             "Follow accessibility guidelines"
-        ]
-    }
-},
-'signing': {
-    content: `
+          ]
+        }
+      },
+      'signing': {
+        content: `
         <div class="content-section">
             <h1>Code Signing</h1>
             
@@ -34960,45 +34960,45 @@ const debugCommands = {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the validity period for iOS certificates?",
             options: [
-                "6 months",
-                "1 year",
-                "2 years",
-                "5 years"
+              "6 months",
+              "1 year",
+              "2 years",
+              "5 years"
             ],
             correct: 1,
             explanation: "iOS development and distribution certificates are valid for 1 year from creation."
-        },
-        {
+          },
+          {
             question: "What format is recommended for Android keystores?",
             options: [
-                "JKS",
-                "PEM",
-                "PKCS12",
-                "DER"
+              "JKS",
+              "PEM",
+              "PKCS12",
+              "DER"
             ],
             correct: 2,
             explanation: "PKCS12 is the recommended format for Android keystores as JKS is a proprietary format."
-        },
-        {
+          },
+          {
             question: "Where should you store keystore passwords?",
             options: [
-                "In build.gradle",
-                "In version control",
-                "In environment variables",
-                "In the keystore file"
+              "In build.gradle",
+              "In version control",
+              "In environment variables",
+              "In the keystore file"
             ],
             correct: 2,
             explanation: "Keystore passwords should be stored in environment variables or secure secret management systems, never in code."
-        }
-    ],
-    project: {
-        title: "Automated Signing Pipeline",
-        description: "Set up a complete automated code signing pipeline for both iOS and Android with CI/CD integration",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Automated Signing Pipeline",
+          description: "Set up a complete automated code signing pipeline for both iOS and Android with CI/CD integration",
+          requirements: [
             "Generate all required certificates and keystores",
             "Configure signing for multiple environments",
             "Implement Fastlane for iOS automation",
@@ -35007,18 +35007,18 @@ const debugCommands = {
             "Document the signing process",
             "Implement certificate rotation reminders",
             "Test signed builds on devices"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use Fastlane match for iOS",
             "Store secrets in GitHub Secrets",
             "Create separate keys for staging",
             "Automate profile updates",
             "Monitor expiration dates"
-        ]
-    }
-},
-'play-store': {
-    content: `
+          ]
+        }
+      },
+      'play-store': {
+        content: `
         <div class="content-section">
             <h1>Google Play Store</h1>
             
@@ -35659,45 +35659,45 @@ const abTestingSetup = {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the recommended format for Android app distribution?",
             options: [
-                "APK",
-                "AAB (App Bundle)",
-                "ZIP",
-                "IPA"
+              "APK",
+              "AAB (App Bundle)",
+              "ZIP",
+              "IPA"
             ],
             correct: 1,
             explanation: "Android App Bundles (AAB) are the recommended format as they allow Google Play to optimize APKs for each device."
-        },
-        {
+          },
+          {
             question: "What's the one-time fee for a Google Play Developer account?",
             options: [
-                "$10",
-                "$25",
-                "$99",
-                "$299"
+              "$10",
+              "$25",
+              "$99",
+              "$299"
             ],
             correct: 1,
             explanation: "Google charges a one-time $25 registration fee for a developer account."
-        },
-        {
+          },
+          {
             question: "How many screenshots are required for Google Play listing?",
             options: [
-                "At least 1",
-                "At least 2",
-                "At least 4",
-                "At least 8"
+              "At least 1",
+              "At least 2",
+              "At least 4",
+              "At least 8"
             ],
             correct: 1,
             explanation: "Google Play requires at least 2 screenshots, with a maximum of 8 per device type."
-        }
-    ],
-    project: {
-        title: "Google Play Store Launch",
-        description: "Prepare and launch a complete app on the Google Play Store with optimized listing",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Google Play Store Launch",
+          description: "Prepare and launch a complete app on the Google Play Store with optimized listing",
+          requirements: [
             "Create compelling store listing",
             "Design all required graphics",
             "Build optimized app bundle",
@@ -35706,18 +35706,18 @@ const abTestingSetup = {
             "Implement analytics",
             "Set up crash reporting",
             "Create update strategy"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use Play Console API for automation",
             "A/B test your store listing",
             "Monitor Android vitals",
             "Respond to user reviews",
             "Plan regular updates"
-        ]
-    }
-},
-'app-store': {
-    content: `
+          ]
+        }
+      },
+      'app-store': {
+        content: `
         <div class="content-section">
             <h1>Apple App Store</h1>
             
@@ -36347,45 +36347,45 @@ class AppStoreConnectAPI {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the annual fee for Apple Developer Program?",
             options: [
-                "$25",
-                "$99",
-                "$199",
-                "$299"
+              "$25",
+              "$99",
+              "$199",
+              "$299"
             ],
             correct: 1,
             explanation: "The Apple Developer Program costs $99 per year for individuals and organizations."
-        },
-        {
+          },
+          {
             question: "How many external TestFlight testers are allowed?",
             options: [
-                "100",
-                "1,000",
-                "10,000",
-                "Unlimited"
+              "100",
+              "1,000",
+              "10,000",
+              "Unlimited"
             ],
             correct: 2,
             explanation: "TestFlight allows up to 10,000 external testers via email invitation."
-        },
-        {
+          },
+          {
             question: "What's the maximum app name length in App Store?",
             options: [
-                "25 characters",
-                "30 characters",
-                "50 characters",
-                "100 characters"
+              "25 characters",
+              "30 characters",
+              "50 characters",
+              "100 characters"
             ],
             correct: 1,
             explanation: "App Store limits app names to 30 characters maximum."
-        }
-    ],
-    project: {
-        title: "App Store Launch Campaign",
-        description: "Plan and execute a successful App Store launch with optimization",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "App Store Launch Campaign",
+          description: "Plan and execute a successful App Store launch with optimization",
+          requirements: [
             "Create App Store Connect listing",
             "Design all required screenshots",
             "Write optimized description",
@@ -36394,18 +36394,18 @@ class AppStoreConnectAPI {
             "Create review response templates",
             "Plan update schedule",
             "Monitor post-launch metrics"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use ASO tools for keyword research",
             "A/B test app icons",
             "Localize for top markets",
             "Build email list for launch",
             "Plan PR for launch day"
-        ]
-    }
-},
-'codepush': {
-    content: `
+          ]
+        }
+      },
+      'codepush': {
+        content: `
         <div class="content-section">
             <h1>CodePush Updates</h1>
             
@@ -37052,45 +37052,45 @@ const reportCodePushMetrics = {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What can CodePush update?",
             options: [
-                "Native code",
-                "JavaScript bundle and assets",
-                "App permissions",
-                "Package name"
+              "Native code",
+              "JavaScript bundle and assets",
+              "App permissions",
+              "Package name"
             ],
             correct: 1,
             explanation: "CodePush can only update JavaScript code and assets, not native code or app configurations."
-        },
-        {
+          },
+          {
             question: "What's the recommended initial rollout percentage?",
             options: [
-                "100%",
-                "50%",
-                "10-25%",
-                "1-5%"
+              "100%",
+              "50%",
+              "10-25%",
+              "1-5%"
             ],
             correct: 3,
             explanation: "Starting with 1-5% rollout allows you to monitor for issues before affecting all users."
-        },
-        {
+          },
+          {
             question: "When should you use mandatory updates?",
             options: [
-                "For all updates",
-                "For critical fixes only",
-                "Never",
-                "For new features"
+              "For all updates",
+              "For critical fixes only",
+              "Never",
+              "For new features"
             ],
             correct: 1,
             explanation: "Mandatory updates should be reserved for critical fixes that users must have immediately."
-        }
-    ],
-    project: {
-        title: "OTA Update System",
-        description: "Implement a complete over-the-air update system with CodePush including custom UI and monitoring",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "OTA Update System",
+          description: "Implement a complete over-the-air update system with CodePush including custom UI and monitoring",
+          requirements: [
             "Set up CodePush for iOS and Android",
             "Create custom update UI with progress",
             "Implement staging/production deployments",
@@ -37099,18 +37099,18 @@ const reportCodePushMetrics = {
             "Set up CI/CD integration",
             "Implement A/B testing",
             "Monitor update metrics"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use different deployment keys for environments",
             "Test rollback scenarios",
             "Monitor bundle sizes",
             "Create update documentation",
             "Plan for offline users"
-        ]
-    }
-},
-'ci-cd': {
-    content: `
+          ]
+        }
+      },
+      'ci-cd': {
+        content: `
         <div class="content-section">
             <h1>CI/CD Pipeline</h1>
             
@@ -37187,7 +37187,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: {{ env.NODE_VERSION }}
           cache: 'npm'
           
       - name: Install dependencies
@@ -37216,7 +37216,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: {{ env.NODE_VERSION }}
           
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -37230,17 +37230,17 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          key: {{ runner.os }}-gradle-{{ hashFiles('**/*.gradle*') }}
           
       - name: Install dependencies
         run: npm ci
         
       - name: Build Android Release
         env:
-          KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
-          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          KEYSTORE_FILE: {{ secrets.ANDROID_KEYSTORE_FILE }}
+          KEYSTORE_PASSWORD: {{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: {{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: {{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           echo "$KEYSTORE_FILE" | base64 --decode > android/app/release.keystore
           cd android
@@ -37261,12 +37261,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: {{ env.NODE_VERSION }}
           
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: {{ env.RUBY_VERSION }}
           bundler-cache: true
           
       - name: Install dependencies
@@ -37276,10 +37276,10 @@ jobs:
           
       - name: Setup certificates
         env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          BUILD_CERTIFICATE_BASE64: {{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: {{ secrets.P12_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: {{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: {{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           # Create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
@@ -37930,45 +37930,45 @@ const cicdSecurity = {
             </div>
         </div>
     `,
-    quiz: [
-        {
+        quiz: [
+          {
             question: "What's the main benefit of CI/CD?",
             options: [
-                "Cheaper hosting",
-                "Faster and more reliable releases",
-                "Less code to write",
-                "Smaller app size"
+              "Cheaper hosting",
+              "Faster and more reliable releases",
+              "Less code to write",
+              "Smaller app size"
             ],
             correct: 1,
             explanation: "CI/CD enables faster, more reliable releases by automating testing, building, and deployment processes."
-        },
-        {
+          },
+          {
             question: "Where should you store signing certificates in CI/CD?",
             options: [
-                "In the repository",
-                "In CI/CD secrets",
-                "In code comments",
-                "On public servers"
+              "In the repository",
+              "In CI/CD secrets",
+              "In code comments",
+              "On public servers"
             ],
             correct: 1,
             explanation: "Signing certificates should be stored securely in CI/CD platform secrets, never in the repository."
-        },
-        {
+          },
+          {
             question: "What's the recommended test coverage threshold?",
             options: [
-                "50%",
-                "70%",
-                "80%+",
-                "100%"
+              "50%",
+              "70%",
+              "80%+",
+              "100%"
             ],
             correct: 2,
             explanation: "80% or higher test coverage is generally recommended, though 100% is often impractical."
-        }
-    ],
-    project: {
-        title: "Enterprise CI/CD Pipeline",
-        description: "Build a production-ready CI/CD pipeline with automated testing, building, and deployment for both platforms",
-        requirements: [
+          }
+        ],
+        project: {
+          title: "Enterprise CI/CD Pipeline",
+          description: "Build a production-ready CI/CD pipeline with automated testing, building, and deployment for both platforms",
+          requirements: [
             "Set up GitHub Actions or similar",
             "Configure automated testing suite",
             "Implement code quality checks",
@@ -37977,17 +37977,17 @@ const cicdSecurity = {
             "Create deployment pipelines",
             "Add security scanning",
             "Implement monitoring and alerts"
-        ],
-        hints: [
+          ],
+          hints: [
             "Use caching for dependencies",
             "Parallelize test execution",
             "Create reusable workflows",
             "Monitor build times",
             "Document the pipeline"
-        ]
-    }
-},
-// Add more topics...
+          ]
+        }
+      },
+      // Add more topics...
     };
 
     // Global state
@@ -38049,11 +38049,8 @@ const cicdSecurity = {
 
     // Render content area
     function renderContent(topicId) {
-      console.log(`Rendering content for topic: ${topicId}`);
       const content = document.getElementById('content');
-      console.log(`Content element: ${courseContent}`);
       const topicContent = courseContent[topicId];
-      console.log(topicContent);
       if (topicContent) {
         content.innerHTML = topicContent.content;
 
