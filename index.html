@@ -1,0 +1,2599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Native v0.80 Master Course - Learn by Doing</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0066FF">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --secondary: #61DAFB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --text: #334155;
+            --border: #E2E8F0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 0.5rem;
+            min-width: 300px;
+        }
+
+        .progress-bar {
+            background: var(--secondary);
+            height: 8px;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            to { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px var(--shadow);
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        .section-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .section-title:hover {
+            background: var(--light);
+        }
+
+        .section-title i {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .section-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .topic-list {
+            margin-left: 1.5rem;
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .topic-list.collapsed {
+            max-height: 0;
+        }
+
+        .topic-item {
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .topic-item:hover {
+            background: var(--light);
+            transform: translateX(5px);
+        }
+
+        .topic-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .topic-item.completed {
+            color: var(--success);
+        }
+
+        .topic-item.completed::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px var(--shadow);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content h1 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content h2 {
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .code-header {
+            background: var(--dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-language {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .code-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .code-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .code-btn.copied {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        pre {
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Interactive Code Playground */
+        .playground {
+            margin: 2rem 0;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .playground-header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playground-tabs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .playground-tab {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .playground-tab.active {
+            background: var(--primary);
+        }
+
+        .playground-content {
+            display: flex;
+            height: 400px;
+        }
+
+        .playground-editor {
+            flex: 1;
+            position: relative;
+        }
+
+        .playground-preview {
+            flex: 1;
+            background: #f5f5f5;
+            padding: 1rem;
+            overflow: auto;
+            border-left: 1px solid var(--border);
+        }
+
+        .editor-textarea {
+            width: 100%;
+            height: 100%;
+            padding: 1rem;
+            border: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            resize: none;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            outline: none;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        /* Mini Projects */
+        .project-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .project-tasks {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .project-task {
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-task input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Tips and Best Practices */
+        .tip-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-box::before {
+            content: '💡';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .tip-box h4 {
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-box p {
+            color: #2d3436;
+            margin: 0;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: linear-gradient(135deg, #ff7979 0%, #eb4d4b 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        /* AI Help Button */
+        .ai-help-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .ai-help-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        /* AI Help Modal */
+        .ai-help-modal {
+            position: fixed;
+            bottom: 100px;
+            right: 2rem;
+            width: 400px;
+            max-width: calc(100vw - 4rem);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px var(--shadow);
+            display: none;
+            z-index: 100;
+            animation: slideUp 0.3s ease;
+        }
+
+        .ai-help-modal.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai-help-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-help-content {
+            padding: 1.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .ai-help-search {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .ai-help-suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-help-item {
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .ai-help-item:hover {
+            background: white;
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Dark Mode */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--dark);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px var(--shadow);
+            transition: all 0.3s;
+            z-index: 200;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        body.dark-mode {
+            --light: #0F172A;
+            --dark: #F8FAFC;
+            --text: #E2E8F0;
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
+            background: #0F172A;
+        }
+
+        body.dark-mode .content,
+        body.dark-mode .sidebar {
+            background: #1E293B;
+            color: #E2E8F0;
+        }
+
+        body.dark-mode .section-title,
+        body.dark-mode .content h1,
+        body.dark-mode .content h3 {
+            color: #F8FAFC;
+        }
+
+        body.dark-mode .topic-item:hover,
+        body.dark-mode .section-title:hover {
+            background: #334155;
+        }
+
+        body.dark-mode .ai-help-modal {
+            background: #1E293B;
+        }
+
+        body.dark-mode .ai-help-item {
+            background: #334155;
+        }
+
+        body.dark-mode .ai-help-item:hover {
+            background: #475569;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -300px;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+            }
+
+            .sidebar.open {
+                transform: translateX(300px);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .playground-content {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .playground-preview {
+                border-left: none;
+                border-top: 1px solid var(--border);
+                min-height: 200px;
+            }
+
+            .ai-help-modal {
+                width: calc(100vw - 2rem);
+                right: 1rem;
+                bottom: 80px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .progress-container {
+                min-width: 100%;
+            }
+
+            .code-container {
+                margin: 1rem -1rem;
+                border-radius: 0;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Offline Indicator */
+        .offline-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--warning);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            transform: translateY(-100%);
+            transition: transform 0.3s;
+            z-index: 9999;
+        }
+
+        .offline-indicator.show {
+            transform: translateY(0);
+        }
+
+        /* Celebration Animation */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            animation: confetti 3s ease-in-out;
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar,
+            .ai-help-btn,
+            .dark-mode-toggle,
+            .mobile-menu-btn,
+            .code-actions {
+                display: none !important;
+            }
+
+            .main-container {
+                display: block;
+            }
+
+            .content {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        <i class="fas fa-wifi-slash"></i> You're offline - Content available from cache
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fab fa-react"></i>
+                <span>React Native v0.80 Master Course</span>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i> Menu
+            </button>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                <div class="progress-text" id="progressText">0% Complete</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon" id="darkModeIcon"></i>
+    </button>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Course sections will be dynamically loaded here -->
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content" id="content">
+            <!-- Content will be dynamically loaded here -->
+        </main>
+    </div>
+
+    <!-- AI Help Button -->
+    <button class="ai-help-btn" onclick="toggleAIHelp()">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <!-- AI Help Modal -->
+    <div class="ai-help-modal" id="aiHelpModal">
+        <div class="ai-help-header">
+            <h3><i class="fas fa-robot"></i> AI Assistant</h3>
+            <button onclick="toggleAIHelp()" style="background: none; border: none; color: white; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="ai-help-content">
+            <input type="text" class="ai-help-search" placeholder="Search for help..." id="aiHelpSearch">
+            <div class="ai-help-suggestions" id="aiHelpSuggestions">
+                <!-- Help suggestions will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script>
+        // Course Data Structure
+        const courseData = {
+            sections: [
+                {
+                    id: 'getting-started',
+                    title: 'Getting Started',
+                    icon: 'fas fa-rocket',
+                    topics: [
+                        { id: 'intro', title: 'Introduction to React Native', completed: false },
+                        { id: 'setup', title: 'Environment Setup', completed: false },
+                        { id: 'first-app', title: 'Your First App', completed: false },
+                        { id: 'project-structure', title: 'Project Structure', completed: false },
+                        { id: 'dev-tools', title: 'Development Tools', completed: false }
+                    ]
+                },
+                {
+                    id: 'core-components',
+                    title: 'Core Components',
+                    icon: 'fas fa-cube',
+                    topics: [
+                        { id: 'view-text', title: 'View and Text', completed: false },
+                        { id: 'image-imagebackground', title: 'Image & ImageBackground', completed: false },
+                        { id: 'scrollview-flatlist', title: 'ScrollView & FlatList', completed: false },
+                        { id: 'textinput', title: 'TextInput & Forms', completed: false },
+                        { id: 'touchables', title: 'Touchable Components', completed: false },
+                        { id: 'modal-alert', title: 'Modal & Alerts', completed: false },
+                        { id: 'activityindicator', title: 'ActivityIndicator', completed: false },
+                        { id: 'statusbar', title: 'StatusBar', completed: false }
+                    ]
+                },
+                {
+                    id: 'styling',
+                    title: 'Styling & Layout',
+                    icon: 'fas fa-paint-brush',
+                    topics: [
+                        { id: 'stylesheet', title: 'StyleSheet API', completed: false },
+                        { id: 'flexbox', title: 'Flexbox Layout', completed: false },
+                        { id: 'responsive', title: 'Responsive Design', completed: false },
+                        { id: 'platform-specific', title: 'Platform-Specific Code', completed: false },
+                        { id: 'styled-components', title: 'Styled Components', completed: false },
+                        { id: 'themes', title: 'Theming', completed: false }
+                    ]
+                },
+                {
+                    id: 'state-management',
+                    title: 'State & Hooks',
+                    icon: 'fas fa-database',
+                    topics: [
+                        { id: 'usestate', title: 'useState Hook', completed: false },
+                        { id: 'useeffect', title: 'useEffect Hook', completed: false },
+                        { id: 'usecontext', title: 'Context API', completed: false },
+                        { id: 'usereducer', title: 'useReducer Hook', completed: false },
+                        { id: 'custom-hooks', title: 'Custom Hooks', completed: false },
+                        { id: 'redux', title: 'Redux Integration', completed: false },
+                        { id: 'zustand', title: 'Zustand', completed: false },
+                        { id: 'mobx', title: 'MobX', completed: false }
+                    ]
+                },
+                {
+                    id: 'navigation',
+                    title: 'Navigation',
+                    icon: 'fas fa-compass',
+                    topics: [
+                        { id: 'react-navigation', title: 'React Navigation Setup', completed: false },
+                        { id: 'stack-navigator', title: 'Stack Navigator', completed: false },
+                        { id: 'tab-navigator', title: 'Tab Navigator', completed: false },
+                        { id: 'drawer-navigator', title: 'Drawer Navigator', completed: false },
+                        { id: 'nested-navigation', title: 'Nested Navigation', completed: false },
+                        { id: 'deep-linking', title: 'Deep Linking', completed: false },
+                        { id: 'navigation-params', title: 'Navigation Parameters', completed: false }
+                    ]
+                },
+                {
+                    id: 'animations',
+                    title: 'Animations',
+                    icon: 'fas fa-magic',
+                    topics: [
+                        { id: 'animated-api', title: 'Animated API Basics', completed: false },
+                        { id: 'layout-animations', title: 'Layout Animations', completed: false },
+                        { id: 'gesture-handler', title: 'Gesture Handler', completed: false },
+                        { id: 'reanimated2', title: 'Reanimated 2', completed: false },
+                        { id: 'shared-element', title: 'Shared Element Transitions', completed: false },
+                        { id: 'lottie', title: 'Lottie Animations', completed: false }
+                    ]
+                },
+                {
+                    id: 'data-management',
+                    title: 'Data Management',
+                    icon: 'fas fa-server',
+                    topics: [
+                        { id: 'fetch-api', title: 'Fetch API & Axios', completed: false },
+                        { id: 'async-storage', title: 'AsyncStorage', completed: false },
+                        { id: 'sqlite', title: 'SQLite Database', completed: false },
+                        { id: 'realm', title: 'Realm Database', completed: false },
+                        { id: 'firebase', title: 'Firebase Integration', completed: false },
+                        { id: 'graphql', title: 'GraphQL with Apollo', completed: false },
+                        { id: 'offline-sync', title: 'Offline Data Sync', completed: false }
+                    ]
+                },
+                {
+                    id: 'testing-debugging',
+                    title: 'Testing & Debugging',
+                    icon: 'fas fa-bug',
+                    topics: [
+                        { id: 'debugging-tools', title: 'Debugging Tools', completed: false },
+                        { id: 'flipper', title: 'Flipper', completed: false },
+                        { id: 'jest-setup', title: 'Jest Setup', completed: false },
+                        { id: 'testing-library', title: 'React Native Testing Library', completed: false },
+                        { id: 'detox', title: 'E2E Testing with Detox', completed: false },
+                        { id: 'performance', title: 'Performance Optimization', completed: false }
+                    ]
+                },
+                {
+                    id: 'publishing',
+                    title: 'Publishing',
+                    icon: 'fas fa-upload',
+                    topics: [
+                        { id: 'app-icons', title: 'App Icons & Splash Screens', completed: false },
+                        { id: 'signing', title: 'Code Signing', completed: false },
+                        { id: 'play-store', title: 'Google Play Store', completed: false },
+                        { id: 'app-store', title: 'Apple App Store', completed: false },
+                        { id: 'codepush', title: 'CodePush Updates', completed: false },
+                        { id: 'ci-cd', title: 'CI/CD Pipeline', completed: false }
+                    ]
+                }
+            ]
+        };
+
+        // Course Content
+        const courseContent = {
+            'intro': {
+                title: 'Introduction to React Native',
+                content: `
+                    <h1><i class="fab fa-react"></i> Introduction to React Native</h1>
+                    
+                    <p>Welcome to the world of React Native! This powerful framework allows you to build native mobile applications using JavaScript and React. Let's explore what makes React Native special and why it's become the go-to choice for cross-platform mobile development.</p>
+
+                    <h2><i class="fas fa-question-circle"></i> What is React Native?</h2>
+                    <p>React Native is an open-source framework created by Facebook (now Meta) that enables developers to build mobile applications using JavaScript and React. Unlike traditional hybrid frameworks, React Native doesn't use WebViews. Instead, it renders using native platform components, providing a truly native user experience.</p>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Key Insight</h4>
+                        <p>React Native follows the "learn once, write anywhere" philosophy, not "write once, run anywhere". This means you'll use the same concepts across platforms but can customize for each platform when needed.</p>
+                    </div>
+
+                    <h2><i class="fas fa-star"></i> Key Features of React Native v0.80</h2>
+                    <ul>
+                        <li><strong>New Architecture:</strong> Fabric renderer and TurboModules for better performance</li>
+                        <li><strong>Hermes Engine:</strong> Optimized JavaScript engine for React Native</li>
+                        <li><strong>TypeScript Support:</strong> First-class TypeScript support out of the box</li>
+                        <li><strong>Improved Developer Experience:</strong> Better error messages and debugging tools</li>
+                        <li><strong>Performance Improvements:</strong> Faster app startup and runtime performance</li>
+                    </ul>
+
+                    <h2><i class="fas fa-chart-line"></i> Why Choose React Native?</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Benefits</span>
+                        </div>
+                        <pre><code class="language-javascript">// One Codebase, Multiple Platforms
+const App = () => {
+  return (
+    <View>
+      <Text>This runs on both iOS and Android!</Text>
+    </View>
+  );
+};
+
+// Native Performance
+// React Native compiles to native code, not web views
+// You get 60fps animations and native look & feel
+
+// Hot Reloading
+// See changes instantly without rebuilding
+// Preserve app state while editing
+
+// Large Ecosystem
+// Access to thousands of npm packages
+// Native modules for platform-specific features</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-cogs"></i> How React Native Works</h2>
+                    
+                    <div class="playground">
+                        <div class="playground-header">
+                            <h3><i class="fas fa-play-circle"></i> Interactive Example</h3>
+                            <div class="playground-tabs">
+                                <button class="playground-tab active" onclick="switchPlaygroundTab(this, 'code')">Code</button>
+                                <button class="playground-tab" onclick="switchPlaygroundTab(this, 'preview')">Preview</button>
+                            </div>
+                        </div>
+                        <div class="playground-content">
+                            <div class="playground-editor" id="playground-code">
+                                <textarea class="editor-textarea" id="playgroundEditor">
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+const WelcomeScreen = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        Welcome to React Native!
+      </Text>
+      <Text style={styles.subtitle}>
+        Build amazing mobile apps with JavaScript
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+  },
+});
+
+export default WelcomeScreen;</textarea>
+                            </div>
+                            <div class="playground-preview" id="playground-preview" style="display: none;">
+                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #f0f0f0;">
+                                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 10px; color: #333;">Welcome to React Native!</h2>
+                                    <p style="font-size: 16px; color: #666;">Build amazing mobile apps with JavaScript</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2><i class="fas fa-project-diagram"></i> React Native Architecture</h2>
+                    <p>React Native uses a bridge to communicate between JavaScript and native code:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Architecture Overview</span>
+                        </div>
+                        <pre><code class="language-javascript">// JavaScript Thread
+// - Your React components and business logic
+// - Handles UI updates and state management
+
+// Bridge
+// - Serializes data between JS and Native
+// - Asynchronous and batched for performance
+
+// Native Thread
+// - UI rendering using platform components
+// - Access to device APIs
+
+// Shadow Thread
+// - Layout calculations
+// - Determines component positions and sizes</code></pre>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Quick Quiz</h3>
+                        <p class="quiz-question">What makes React Native different from other hybrid frameworks?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                It renders using native platform components instead of WebViews
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                It only works on iOS devices
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                It requires knowledge of Swift and Kotlin
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                It can only be used for simple applications
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Important Note</h4>
+                        <p>While React Native handles most cross-platform concerns, you'll still need platform-specific code for certain features. This is a strength, not a limitation – it gives you full control when needed.</p>
+                    </div>
+
+                    <h2><i class="fas fa-road"></i> Learning Path</h2>
+                    <p>Throughout this course, you'll master:</p>
+                    <ul>
+                        <li>Building user interfaces with React Native components</li>
+                        <li>Managing application state and data flow</li>
+                        <li>Implementing smooth animations and gestures</li>
+                        <li>Integrating with device features and APIs</li>
+                        <li>Testing and debugging your applications</li>
+                        <li>Publishing to app stores</li>
+                    </ul>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-code"></i> Mini Project: Hello World</h3>
+                        <p class="project-description">Let's create your first React Native component! Complete these tasks:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="task1">
+                                <label for="task1">Create a new component called HelloWorld</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="task2">
+                                <label for="task2">Add your name to the welcome message</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="task3">
+                                <label for="task3">Style the text with custom colors</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="task4">
+                                <label for="task4">Add an emoji to make it fun! 🎉</label>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'setup': {
+                title: 'Environment Setup',
+                content: `
+                    <h1><i class="fas fa-laptop-code"></i> Environment Setup</h1>
+                    
+                    <p>Setting up your React Native development environment correctly is crucial for a smooth development experience. This guide will walk you through the complete setup process for both macOS and Windows.</p>
+
+                    <h2><i class="fas fa-tools"></i> Prerequisites</h2>
+                    
+                    <div class="tip-box">
+                        <h4><i class="fas fa-info-circle"></i> System Requirements</h4>
+                        <p>• macOS 10.14 (Mojave) or newer for iOS development<br>
+                        • Windows 10 or newer for Android development<br>
+                        • 8GB RAM minimum (16GB recommended)<br>
+                        • 10GB free disk space</p>
+                    </div>
+
+                    <h2><i class="fab fa-node-js"></i> Step 1: Install Node.js</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># Install Node.js v18 or newer
+# macOS (using Homebrew)
+brew install node
+
+# Windows (using Chocolatey)
+choco install nodejs
+
+# Verify installation
+node --version  # Should show v18.x.x or higher
+npm --version   # Should show 8.x.x or higher</code></pre>
+                    </div>
+
+                    <h2><i class="fab fa-apple"></i> macOS Setup (for iOS Development)</h2>
+                    
+                    <h3>Install Xcode</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># Install Xcode from App Store (this takes a while!)
+# Then install Xcode Command Line Tools
+xcode-select --install
+
+# Accept Xcode license
+sudo xcodebuild -license accept</code></pre>
+                    </div>
+
+                    <h3>Install CocoaPods</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># Install CocoaPods
+sudo gem install cocoapods
+
+# Or using Homebrew
+brew install cocoapods</code></pre>
+                    </div>
+
+                    <h2><i class="fab fa-android"></i> Android Setup (for both macOS and Windows)</h2>
+                    
+                    <h3>Install Java Development Kit (JDK)</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># macOS
+brew install --cask zulu11
+
+# Windows
+choco install ojdkbuild
+
+# Verify installation
+java -version</code></pre>
+                    </div>
+
+                    <h3>Install Android Studio</h3>
+                    <p>Download and install Android Studio from the official website. During installation:</p>
+                    <ol>
+                        <li>Choose "Custom" installation</li>
+                        <li>Select these components:
+                            <ul>
+                                <li>Android SDK</li>
+                                <li>Android SDK Platform</li>
+                                <li>Android Virtual Device</li>
+                            </ul>
+                        </li>
+                        <li>Install Android SDK Platform 33 (for React Native 0.80)</li>
+                    </ol>
+
+                    <h3>Configure Environment Variables</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># macOS/Linux - Add to ~/.zshrc or ~/.bash_profile
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+
+# Windows - Add to System Environment Variables
+ANDROID_HOME = C:\Users\[username]\AppData\Local\Android\Sdk
+# Add to PATH:
+%ANDROID_HOME%\platform-tools
+%ANDROID_HOME%\emulator
+%ANDROID_HOME%\tools
+%ANDROID_HOME%\tools\bin</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-terminal"></i> Install React Native CLI</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># Install React Native CLI globally
+npm install -g react-native-cli
+
+# For React Native 0.80, also install the latest CLI tools
+npx react-native@latest init --version 0.80.0</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-rocket"></i> Create Your First Project</h2>
+                    
+                    <div class="playground">
+                        <div class="playground-header">
+                            <h3><i class="fas fa-code"></i> Project Creation</h3>
+                            <div class="playground-tabs">
+                                <button class="playground-tab active" onclick="switchPlaygroundTab(this, 'typescript')">TypeScript</button>
+                                <button class="playground-tab" onclick="switchPlaygroundTab(this, 'javascript')">JavaScript</button>
+                            </div>
+                        </div>
+                        <div class="playground-content">
+                            <div class="playground-editor" id="playground-typescript">
+                                <textarea class="editor-textarea">
+# Create a new React Native project with TypeScript
+npx react-native@latest init MyAwesomeApp --template react-native-template-typescript
+
+# Navigate to project
+cd MyAwesomeApp
+
+# Install iOS dependencies (macOS only)
+cd ios && pod install && cd ..
+
+# Run on iOS (macOS only)
+npx react-native run-ios
+
+# Run on Android
+npx react-native run-android</textarea>
+                            </div>
+                            <div class="playground-editor" id="playground-javascript" style="display: none;">
+                                <textarea class="editor-textarea">
+# Create a new React Native project with JavaScript
+npx react-native@latest init MyAwesomeApp
+
+# Navigate to project
+cd MyAwesomeApp
+
+# Install iOS dependencies (macOS only)
+cd ios && pod install && cd ..
+
+# Run on iOS (macOS only)
+npx react-native run-ios
+
+# Run on Android
+npx react-native run-android</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2><i class="fas fa-mobile-alt"></i> Setting Up Emulators</h2>
+                    
+                    <h3>iOS Simulator (macOS only)</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># Open Xcode
+open -a Xcode
+
+# Go to Xcode > Preferences > Components
+# Download iOS simulators you need
+
+# List available simulators
+xcrun simctl list devices
+
+# Open a specific simulator
+open -a Simulator --args -CurrentDeviceUDID [DEVICE_ID]</code></pre>
+                    </div>
+
+                    <h3>Android Emulator</h3>
+                    <ol>
+                        <li>Open Android Studio</li>
+                        <li>Click "AVD Manager" (Android Virtual Device)</li>
+                        <li>Create a new virtual device</li>
+                        <li>Choose a device definition (e.g., Pixel 5)</li>
+                        <li>Select a system image (API Level 33 for React Native 0.80)</li>
+                        <li>Finish and launch the emulator</li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Common Issues & Solutions</h4>
+                        <p><strong>Metro bundler issues:</strong> Clear cache with <code>npx react-native start --reset-cache</code><br>
+                        <strong>Build failures:</strong> Clean and rebuild with <code>cd android && ./gradlew clean</code><br>
+                        <strong>Pod install failures:</strong> Update CocoaPods with <code>sudo gem update cocoapods</code></p>
+                    </div>
+
+                    <h2><i class="fas fa-vial"></i> Verify Your Setup</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-bash"># Run React Native doctor to check your setup
+npx react-native doctor
+
+# This will check:
+# ✓ Node.js
+# ✓ npm/yarn
+# ✓ Android Studio
+# ✓ Android SDK
+# ✓ Xcode (macOS)
+# ✓ CocoaPods (macOS)</code></pre>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Setup Check</h3>
+                        <p class="quiz-question">Which command creates a new React Native project with TypeScript support?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                npm create react-native-app MyApp
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                npx react-native@latest init MyApp --template react-native-template-typescript
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                react-native new MyApp --typescript
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                npm init react-native MyApp
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <h2><i class="fas fa-wrench"></i> Recommended VS Code Extensions</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">json</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-json">{
+  "recommendations": [
+    "dsznajder.es7-react-js-snippets",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "flowtype.flow-for-vscode",
+    "msjsdiag.vscode-react-native",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "styled-components.vscode-styled-components",
+    "burkeholland.simple-react-snippets"
+  ]
+}</code></pre>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-tasks"></i> Setup Checklist</h3>
+                        <p class="project-description">Complete your development environment setup:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="setup1">
+                                <label for="setup1">Install Node.js v18 or higher</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="setup2">
+                                <label for="setup2">Set up iOS development tools (Xcode, CocoaPods)</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="setup3">
+                                <label for="setup3">Set up Android development tools (Android Studio, SDK)</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="setup4">
+                                <label for="setup4">Create and run your first React Native project</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="setup5">
+                                <label for="setup5">Install recommended VS Code extensions</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-star"></i> Pro Tip</h4>
+                        <p>Use <code>npx react-native start</code> in one terminal and <code>npx react-native run-ios/android</code> in another for better control over the Metro bundler.</p>
+                    </div>
+                `
+            },
+            'first-app': {
+                title: 'Your First App',
+                content: `
+                    <h1><i class="fas fa-mobile-alt"></i> Your First React Native App</h1>
+                    
+                    <p>Let's build your first React Native app from scratch! We'll create a simple but complete app that demonstrates core concepts and best practices.</p>
+
+                    <h2><i class="fas fa-folder-open"></i> Project Structure Overview</h2>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">Project Structure</span>
+                        </div>
+                        <pre><code class="language-bash">MyFirstApp/
+├── android/          # Android-specific code
+├── ios/              # iOS-specific code
+├── src/              # Your app source code
+│   ├── components/   # Reusable components
+│   ├── screens/      # Screen components
+│   └── utils/        # Helper functions
+├── App.tsx           # Main app component
+├── index.js          # Entry point
+├── package.json      # Dependencies
+└── tsconfig.json     # TypeScript config</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-code"></i> Building a Todo App</h2>
+                    <p>We'll build a complete Todo app with the following features:</p>
+                    <ul>
+                        <li>Add new todos</li>
+                        <li>Mark todos as complete</li>
+                        <li>Delete todos</li>
+                        <li>Filter by status</li>
+                        <li>Persist data locally</li>
+                    </ul>
+
+                    <h3>Step 1: Main App Component</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">App.tsx</span>
+                            <div class="code-actions">
+                                <button class="code-btn" onclick="copyCode(this)">Copy</button>
+                                <button class="code-btn" onclick="runInPlayground(this)">Try It</button>
+                            </div>
+                        </div>
+                        <pre><code class="language-typescript">import React, { useState, useEffect } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: Date;
+}
+
+const App = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [inputText, setInputText] = useState('');
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+
+  // Load todos from storage on app start
+  useEffect(() => {
+    loadTodos();
+  }, []);
+
+  // Save todos whenever they change
+  useEffect(() => {
+    saveTodos();
+  }, [todos]);
+
+  const loadTodos = async () => {
+    try {
+      const storedTodos = await AsyncStorage.getItem('todos');
+      if (storedTodos) {
+        setTodos(JSON.parse(storedTodos));
+      }
+    } catch (error) {
+      console.error('Error loading todos:', error);
+    }
+  };
+
+  const saveTodos = async () => {
+    try {
+      await AsyncStorage.setItem('todos', JSON.stringify(todos));
+    } catch (error) {
+      console.error('Error saving todos:', error);
+    }
+  };
+
+  const addTodo = () => {
+    if (inputText.trim()) {
+      const newTodo: Todo = {
+        id: Date.now().toString(),
+        text: inputText.trim(),
+        completed: false,
+        createdAt: new Date(),
+      };
+      setTodos([newTodo, ...todos]);
+      setInputText('');
+    }
+  };
+
+  const toggleTodo = (id: string) => {
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+
+  const deleteTodo = (id: string) => {
+    Alert.alert(
+      'Delete Todo',
+      'Are you sure you want to delete this todo?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => setTodos(todos.filter(todo => todo.id !== id)),
+        },
+      ],
+    );
+  };
+
+  const getFilteredTodos = () => {
+    switch (filter) {
+      case 'active':
+        return todos.filter(todo => !todo.completed);
+      case 'completed':
+        return todos.filter(todo => todo.completed);
+      default:
+        return todos;
+    }
+  };
+
+  const renderTodo = ({ item }: { item: Todo }) => (
+    <TouchableOpacity
+      style={styles.todoItem}
+      onPress={() => toggleTodo(item.id)}
+      onLongPress={() => deleteTodo(item.id)}
+    >
+      <View style={styles.todoContent}>
+        <View style={[styles.checkbox, item.completed && styles.checkboxCompleted]}>
+          {item.completed && <Text style={styles.checkmark}>✓</Text>}
+        </View>
+        <Text style={[styles.todoText, item.completed && styles.todoTextCompleted]}>
+          {item.text}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>My Todos</Text>
+          <Text style={styles.subtitle}>
+            {todos.filter(t => !t.completed).length} active tasks
+          </Text>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="What needs to be done?"
+            placeholderTextColor="#999"
+            value={inputText}
+            onChangeText={setInputText}
+            onSubmitEditing={addTodo}
+            returnKeyType="done"
+          />
+          <TouchableOpacity style={styles.addButton} onPress={addTodo}>
+            <Text style={styles.addButtonText}>+</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.filters}>
+          {(['all', 'active', 'completed'] as const).map(filterType => (
+            <TouchableOpacity
+              key={filterType}
+              style={[styles.filterButton, filter === filterType && styles.filterButtonActive]}
+              onPress={() => setFilter(filterType)}
+            >
+              <Text style={[styles.filterText, filter === filterType && styles.filterTextActive]}>
+                {filterType.charAt(0).toUpperCase() + filterType.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <FlatList
+          data={getFilteredTodos()}
+          renderItem={renderTodo}
+          keyExtractor={item => item.id}
+          style={styles.list}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+        />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 10,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 5,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  input: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    borderRadius: 10,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  addButton: {
+    backgroundColor: '#007AFF',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  addButtonText: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  filters: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    gap: 10,
+  },
+  filterButton: {
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  filterButtonActive: {
+    backgroundColor: '#007AFF',
+    borderColor: '#007AFF',
+  },
+  filterText: {
+    color: '#666',
+    fontSize: 14,
+  },
+  filterTextActive: {
+    color: 'white',
+  },
+  list: {
+    flex: 1,
+  },
+  listContent: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  todoItem: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 15,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  todoContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#007AFF',
+    marginRight: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkboxCompleted: {
+    backgroundColor: '#007AFF',
+  },
+  checkmark: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  todoText: {
+    fontSize: 16,
+    color: '#333',
+    flex: 1,
+  },
+  todoTextCompleted: {
+    textDecorationLine: 'line-through',
+    color: '#999',
+  },
+});
+
+export default App;</code></pre>
+                    </div>
+
+                    <div class="playground">
+                        <div class="playground-header">
+                            <h3><i class="fas fa-play-circle"></i> Live Preview</h3>
+                            <button class="code-btn" onclick="refreshPreview()">Refresh</button>
+                        </div>
+                        <div class="playground-content">
+                            <div class="playground-preview" style="display: block; background: #f5f5f5; padding: 20px;">
+                                <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                    <h2 style="font-size: 32px; font-weight: bold; color: #333; margin: 0;">My Todos</h2>
+                                    <p style="font-size: 16px; color: #666; margin: 5px 0 20px;">2 active tasks</p>
+                                    
+                                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                        <input type="text" placeholder="What needs to be done?" style="flex: 1; padding: 12px 15px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 16px;">
+                                        <button style="background: #007AFF; color: white; width: 50px; height: 50px; border-radius: 25px; border: none; font-size: 24px; cursor: pointer;">+</button>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                        <button style="padding: 8px 15px; background: #007AFF; color: white; border: none; border-radius: 20px; cursor: pointer;">All</button>
+                                        <button style="padding: 8px 15px; background: white; color: #666; border: 1px solid #e0e0e0; border-radius: 20px; cursor: pointer;">Active</button>
+                                        <button style="padding: 8px 15px; background: white; color: #666; border: 1px solid #e0e0e0; border-radius: 20px; cursor: pointer;">Completed</button>
+                                    </div>
+                                    
+                                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                                        <div style="background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; display: flex; align-items: center;">
+                                            <div style="width: 24px; height: 24px; border: 2px solid #007AFF; border-radius: 12px; margin-right: 12px;"></div>
+                                            <span style="font-size: 16px; color: #333;">Learn React Native basics</span>
+                                        </div>
+                                        <div style="background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; display: flex; align-items: center;">
+                                            <div style="width: 24px; height: 24px; background: #007AFF; border: 2px solid #007AFF; border-radius: 12px; margin-right: 12px; display: flex; align-items: center; justify-content: center;">
+                                                <span style="color: white; font-weight: bold;">✓</span>
+                                            </div>
+                                            <span style="font-size: 16px; color: #999; text-decoration: line-through;">Set up development environment</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2><i class="fas fa-puzzle-piece"></i> Breaking Down the Code</h2>
+
+                    <h3>1. State Management</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">typescript</span>
+                        </div>
+                        <pre><code class="language-typescript">// We use multiple state variables to manage our app
+const [todos, setTodos] = useState<Todo[]>([]);        // Array of todos
+const [inputText, setInputText] = useState('');        // Input field value
+const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all'); // Current filter
+
+// TypeScript interface defines the shape of our data
+interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: Date;
+}</code></pre>
+                    </div>
+
+                    <h3>2. Data Persistence</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">typescript</span>
+                        </div>
+                        <pre><code class="language-typescript">// AsyncStorage provides persistent local storage
+const saveTodos = async () => {
+  try {
+    await AsyncStorage.setItem('todos', JSON.stringify(todos));
+  } catch (error) {
+    console.error('Error saving todos:', error);
+  }
+};
+
+// Load todos when app starts
+useEffect(() => {
+  loadTodos();
+}, []); // Empty dependency array = run once on mount</code></pre>
+                    </div>
+
+                    <h3>3. User Interactions</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">typescript</span>
+                        </div>
+                        <pre><code class="language-typescript">// Handle different user actions
+const addTodo = () => {
+  if (inputText.trim()) {
+    // Create new todo with unique ID
+    const newTodo: Todo = {
+      id: Date.now().toString(),
+      text: inputText.trim(),
+      completed: false,
+      createdAt: new Date(),
+    };
+    // Add to beginning of array
+    setTodos([newTodo, ...todos]);
+    setInputText(''); // Clear input
+  }
+};
+
+// Toggle completion status
+const toggleTodo = (id: string) => {
+  setTodos(todos.map(todo =>
+    todo.id === id 
+      ? { ...todo, completed: !todo.completed } 
+      : todo
+  ));
+};</code></pre>
+                    </div>
+
+                    <h2><i class="fas fa-paint-brush"></i> Styling Best Practices</h2>
+                    
+                    <div class="tip-box">
+                        <h4><i class="fas fa-lightbulb"></i> Style Tips</h4>
+                        <p>• Use StyleSheet.create() for better performance<br>
+                        • Keep styles close to components<br>
+                        • Use consistent spacing and colors<br>
+                        • Consider creating a theme file for reusable values</p>
+                    </div>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-language">typescript</span>
+                        </div>
+                        <pre><code class="language-typescript">// Create a theme file for consistency
+// theme.ts
+export const theme = {
+  colors: {
+    primary: '#007AFF',
+    background: '#f5f5f5',
+    text: '#333',
+    textSecondary: '#666',
+    border: '#e0e0e0',
+    white: '#ffffff',
+  },
+  spacing: {
+    xs: 5,
+    sm: 10,
+    md: 15,
+    lg: 20,
+    xl: 30,
+  },
+  borderRadius: {
+    sm: 5,
+    md: 10,
+    lg: 15,
+    full: 9999,
+  },
+};</code></pre>
+                    </div>
+
+                    <div class="quiz-container">
+                        <h3><i class="fas fa-question"></i> Understanding Check</h3>
+                        <p class="quiz-question">What hook do we use to persist data when the todos array changes?</p>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                useState
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'correct')">
+                                useEffect with todos dependency
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                useCallback
+                            </div>
+                            <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">
+                                useMemo
+                            </div>
+                        </div>
+                        <div class="quiz-feedback" id="quizFeedback"></div>
+                    </div>
+
+                    <h2><i class="fas fa-rocket"></i> Enhancements You Can Add</h2>
+                    
+                    <div class="project-card">
+                        <h3 class="project-title"><i class="fas fa-code"></i> Project: Enhance the Todo App</h3>
+                        <p class="project-description">Take your todo app to the next level with these features:</p>
+                        <div class="project-tasks">
+                            <div class="project-task">
+                                <input type="checkbox" id="enhance1">
+                                <label for="enhance1">Add due dates to todos</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="enhance2">
+                                <label for="enhance2">Implement swipe to delete</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="enhance3">
+                                <label for="enhance3">Add categories or tags</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="enhance4">
+                                <label for="enhance4">Create a dark mode theme</label>
+                            </div>
+                            <div class="project-task">
+                                <input type="checkbox" id="enhance5">
+                                <label for="enhance5">Add todo search functionality</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2><i class="fas fa-bug"></i> Common Mistakes to Avoid</h2>
+                    
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Pitfalls</h4>
+                        <p>• Don't mutate state directly - always create new objects/arrays<br>
+                        • Remember to handle keyboard on both iOS and Android<br>
+                        • Test on real devices - simulators don't catch all issues<br>
+                        • Don't forget to handle empty states and errors</p>
+                    </div>
+
+                    <h2><i class="fas fa-file-code"></i> Next Steps</h2>
+                    
+                    <p>Now that you've built your first app, you can:</p>
+                    <ol>
+                        <li>Add more features to make it production-ready</li>
+                        <li>Extract components for reusability</li>
+                        <li>Implement proper error handling</li>
+                        <li>Add unit tests</li>
+                        <li>Style it to match your brand</li>
+                    </ol>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-star"></i> Pro Tip</h4>
+                        <p>Use React DevTools to debug your component hierarchy and state. Install the standalone version for React Native: <code>npm install -g react-devtools</code></p>
+                    </div>
+                `
+            },
+            // Add more content for other topics...
+        };
+
+        // Global state
+        let currentTopic = 'intro';
+        let completedTopics = new Set();
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedProgress();
+            renderSidebar();
+            renderContent(currentTopic);
+            updateProgress();
+            initializeServiceWorker();
+            checkOfflineStatus();
+            
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Render sidebar navigation
+        function renderSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = '';
+
+            courseData.sections.forEach(section => {
+                const sectionGroup = document.createElement('div');
+                sectionGroup.className = 'section-group';
+
+                const sectionTitle = document.createElement('div');
+                sectionTitle.className = 'section-title';
+                sectionTitle.innerHTML = `<i class="${section.icon}"></i> ${section.title} <i class="fas fa-chevron-down"></i>`;
+                sectionTitle.onclick = () => toggleSection(sectionTitle);
+
+                const topicList = document.createElement('div');
+                topicList.className = 'topic-list';
+
+                section.topics.forEach(topic => {
+                    const topicItem = document.createElement('div');
+                    topicItem.className = 'topic-item';
+                    if (topic.id === currentTopic) topicItem.classList.add('active');
+                    if (completedTopics.has(topic.id)) topicItem.classList.add('completed');
+                    topicItem.textContent = topic.title;
+                    topicItem.onclick = () => {
+                        currentTopic = topic.id;
+                        renderContent(topic.id);
+                        renderSidebar();
+                        closeSidebar();
+                    };
+                    topicList.appendChild(topicItem);
+                });
+
+                sectionGroup.appendChild(sectionTitle);
+                sectionGroup.appendChild(topicList);
+                sidebar.appendChild(sectionGroup);
+            });
+        }
+
+        // Render content area
+        function renderContent(topicId) {
+            const content = document.getElementById('content');
+            const topicContent = courseContent[topicId];
+            
+            if (topicContent) {
+                content.innerHTML = topicContent.content;
+                
+                // Add complete button
+                const completeBtn = document.createElement('button');
+                completeBtn.className = 'code-btn';
+                completeBtn.style.cssText = 'margin-top: 2rem; padding: 1rem 2rem; font-size: 1rem; background: var(--success);';
+                completeBtn.innerHTML = completedTopics.has(topicId) 
+                    ? '<i class="fas fa-check"></i> Completed' 
+                    : '<i class="fas fa-check-circle"></i> Mark as Complete';
+                completeBtn.onclick = () => toggleComplete(topicId);
+                content.appendChild(completeBtn);
+                
+                // Re-highlight code blocks
+                Prism.highlightAll();
+            } else {
+                // Generate content for topics without custom content
+                content.innerHTML = `
+                    <h1>${topicId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h1>
+                    <p>This section is coming soon! We're working hard to bring you the best React Native learning experience.</p>
+                    <div class="tip-box">
+                        <h4><i class="fas fa-construction"></i> Under Construction</h4>
+                        <p>Check back soon for detailed content, examples, and exercises for this topic.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Toggle section collapse
+        function toggleSection(sectionTitle) {
+            sectionTitle.classList.toggle('collapsed');
+            sectionTitle.nextElementSibling.classList.toggle('collapsed');
+        }
+
+        // Toggle topic completion
+        function toggleComplete(topicId) {
+            if (completedTopics.has(topicId)) {
+                completedTopics.delete(topicId);
+            } else {
+                completedTopics.add(topicId);
+                
+                // Check if all topics completed
+                const totalTopics = courseData.sections.reduce((acc, section) => acc + section.topics.length, 0);
+                if (completedTopics.size === totalTopics) {
+                    celebrate();
+                }
+            }
+            saveProgress();
+            updateProgress();
+            renderSidebar();
+            renderContent(currentTopic);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const totalTopics = courseData.sections.reduce((acc, section) => acc + section.topics.length, 0);
+            const completedCount = completedTopics.size;
+            const percentage = Math.round((completedCount / totalTopics) * 100);
+            
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = `${percentage}% Complete`;
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            localStorage.setItem('completedTopics', JSON.stringify([...completedTopics]));
+            localStorage.setItem('currentTopic', currentTopic);
+        }
+
+        // Load saved progress
+        function loadSavedProgress() {
+            const saved = localStorage.getItem('completedTopics');
+            if (saved) {
+                completedTopics = new Set(JSON.parse(saved));
+            }
+            
+            const savedTopic = localStorage.getItem('currentTopic');
+            if (savedTopic) {
+                currentTopic = savedTopic;
+            }
+        }
+
+        // Sidebar toggle for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function closeSidebar() {
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('darkModeIcon');
+            icon.className = document.body.classList.contains('dark-mode') ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('darkModeIcon').className = 'fas fa-sun';
+        }
+
+        // Copy code functionality
+        function copyCode(btn) {
+            const codeBlock = btn.closest('.code-container').querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Playground functionality
+        function switchPlaygroundTab(btn, tab) {
+            const playground = btn.closest('.playground');
+            const tabs = playground.querySelectorAll('.playground-tab');
+            const contents = playground.querySelectorAll('[id^="playground-"]');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            
+            contents.forEach(content => {
+                if (content.id.includes(tab)) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        }
+
+        function runInPlayground(btn) {
+            // This would integrate with an actual React Native playground
+            alert('Playground integration coming soon! For now, copy the code and try it in your local environment.');
+        }
+
+        function refreshPreview() {
+            // Refresh the preview content
+            const preview = document.querySelector('.playground-preview');
+            preview.style.opacity = '0';
+            setTimeout(() => {
+                preview.style.opacity = '1';
+            }, 300);
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, isCorrect) {
+            const options = option.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                opt.style.pointerEvents = 'none';
+            });
+            
+            option.classList.add('selected', isCorrect);
+            
+            const feedback = option.closest('.quiz-container').querySelector('.quiz-feedback');
+            feedback.className = `quiz-feedback show ${isCorrect}`;
+            feedback.innerHTML = isCorrect 
+                ? '<i class="fas fa-check-circle"></i> Correct! Great job!' 
+                : '<i class="fas fa-times-circle"></i> Not quite. The correct answer is highlighted above.';
+            
+            // Highlight correct answer if wrong
+            if (!isCorrect) {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // AI Help functionality
+        function toggleAIHelp() {
+            const modal = document.getElementById('aiHelpModal');
+            modal.classList.toggle('show');
+            if (modal.classList.contains('show')) {
+                loadAIHelpSuggestions();
+            }
+        }
+
+        function loadAIHelpSuggestions() {
+            const suggestions = document.getElementById('aiHelpSuggestions');
+            const commonIssues = [
+                { title: 'Metro bundler not starting', solution: 'Try running `npx react-native start --reset-cache`' },
+                { title: 'Build failed on iOS', solution: 'Clean build folder in Xcode and run `cd ios && pod install`' },
+                { title: 'Android emulator not found', solution: 'Make sure Android SDK is in PATH and emulator is running' },
+                { title: 'State not updating', solution: 'Remember state updates are asynchronous. Use functional updates for dependent state.' },
+                { title: 'Styling issues', solution: 'React Native uses Flexbox by default. Check flex properties and directions.' },
+            ];
+            
+            suggestions.innerHTML = commonIssues.map(issue => `
+                <div class="ai-help-item" onclick="showAISolution('${issue.title}', '${issue.solution}')">
+                    <strong>${issue.title}</strong>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: #666;">${issue.solution}</p>
+                </div>
+            `).join('');
+        }
+
+        function showAISolution(title, solution) {
+            alert(`${title}\n\nSolution: ${solution}`);
+        }
+
+        // Search functionality for AI help
+        document.getElementById('aiHelpSearch')?.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.ai-help-item');
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Celebration animation
+        function celebrate() {
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration';
+            document.body.appendChild(celebration);
+            
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.backgroundColor = ['#007AFF', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'][Math.floor(Math.random() * 5)];
+                celebration.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                celebration.remove();
+                alert('🎉 Congratulations! You\'ve completed the entire React Native course! You\'re now ready to build amazing mobile apps!');
+            }, 3000);
+        }
+
+        // Service Worker for offline support
+        function initializeServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').catch(err => {
+                    console.log('Service Worker registration failed:', err);
+                });
+            }
+        }
+
+        // Check offline status
+        function checkOfflineStatus() {
+            const indicator = document.getElementById('offlineIndicator');
+            
+            function updateStatus() {
+                if (!navigator.onLine) {
+                    indicator.classList.add('show');
+                } else {
+                    indicator.classList.remove('show');
+                }
+            }
+            
+            window.addEventListener('online', updateStatus);
+            window.addEventListener('offline', updateStatus);
+            updateStatus();
+        }
+
+        // Handle keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K for search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleAIHelp();
+            }
+            
+            // Escape to close modals
+            if (e.key === 'Escape') {
+                document.getElementById('aiHelpModal').classList.remove('show');
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
